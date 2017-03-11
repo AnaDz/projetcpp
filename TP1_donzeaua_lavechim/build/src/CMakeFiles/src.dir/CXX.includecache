@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Dvector.cpp
+Dvector.h
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Dvector.h
+string
+-
+stdexcept
+-
+cstdlib
+-
+ctime
+-
+cstring
+-
+
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Dvector.h
+fstream
+-
+iostream
+-
+
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Height.cpp
+Height.h
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Height.h
+
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Height.h
+Dvector.h
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/src/Dvector.h
+ostream
+-
+istream
+-
+iostream
+-
+stdexcept
+-
+

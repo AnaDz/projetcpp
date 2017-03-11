@@ -34,6 +34,8 @@ public:
   Dvector operator /=(double d);
   Dvector operator -();
   Dvector& operator =(const Dvector &v);
+  Dvector & operator+=(const Dvector v);
+	Dvector & operator-=(const Dvector v);
   bool operator == (const Dvector &v);
 };
 

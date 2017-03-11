@@ -212,6 +212,27 @@ Dvector& Dvector::operator =(const Dvector &v){
   return *this;
 }
 
+Dvector & Dvector::operator+=(const Dvector v) { 
+    if(dim == v.size()) {
+		  for(int i = 0; i<dim; i++) {
+		  	vect[i] += v(i);
+		  }
+		} else {
+			throw std::invalid_argument("Addition de 2 vecteurs de taille différentes.\n");
+		}
+}
+
+Dvector & Dvector::operator-=(const Dvector v) { 
+    if(dim == v.size()) {
+		  for(int i = 0; i<dim; i++) {
+		  	vect[i] -= v(i);
+		  }
+    } else {
+    	throw std::invalid_argument("Soustraction de 2 vecteurs de taille différentes.\n");
+    }
+}
+
+
 bool Dvector::operator ==(const Dvector &v){
   if (v.size()== this->dim){
     bool res = true;
@@ -223,6 +244,9 @@ bool Dvector::operator ==(const Dvector &v){
     return false;
   }
 }
+
+//___________________FIN CLASSE Dvector_______________________//
+
 /* OPERATEUR EXTERNES */
 
 Dvector operator +(double d, const Dvector & v){
@@ -313,11 +337,12 @@ Dvector operator -(const Dvector & v1, const Dvector & v2){
 
 std::ostream & operator <<(std::ostream &Out, const Dvector &v){
   Dvector vec(v);
-  Out << "Vecteur : ";
+  Out << "[ ";
 
   for (int i=0; i<vec.size(); i++){
     Out<<vec(i)<<" ";
   }
+  Out<<"]";
   Out<<std::endl;
   return Out;
 }

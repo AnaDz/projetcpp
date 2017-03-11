@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/Dvector.h
+fstream
+-
+iostream
+-
+
+../src/Height.h
+Dvector.h
+../src/Dvector.h
+ostream
+-
+istream
+-
+iostream
+-
+stdexcept
+-
+
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/tests/testHeight.cpp
+Height.h
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/tests/Height.h
+Dvector.h
+/home/marvin/Bureau/projetcpp/TP1_donzeaua_lavechim/tests/Dvector.h
+iostream
+-
+assert.h
+-
+sstream
+-
+
