@@ -3,7 +3,7 @@
 add_library(src
 	SHARED
 	Dvector.cpp
-	Height.cpp)
+	Height.cpp WaveModel.h GerstnerWave.h GerstnerWave.cpp)
 	
 install (TARGETS src
 	DESTINATION lib)
