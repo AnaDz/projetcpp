@@ -18,7 +18,7 @@ class Height {
 	private:
 	double Lx;
 	double Ly;
-	int nx;
+	int nx; //nx correspond aux nombres d'intervalles, donc nx+1 
 	int ny;
 	Dvector hauteurs;
 	void init(double Lx, double Ly, int nx, int ny);
@@ -29,11 +29,12 @@ class Height {
 	Height();
 	Height(const Height & h);
 	Height(double Lx,double Ly,int nx,int ny);
+	Height(double Lx, double Ly, int nx, int ny, const Dvector &v);
 	
 	void fill(const Dvector &v);
 	
 	//Opérateurs
-	double & operator()(int i, int j);
+	double const & operator()(double x, double y, double t) const;
 	
 	//Accesseurs
 	double getLx() const;
@@ -44,4 +45,6 @@ class Height {
 	
 };
 
+	//Opérateurs de flux
+	std::ostream & operator<<(std::ostream &Out, const Height &h);
 #endif /* HEIGHT_H_ */

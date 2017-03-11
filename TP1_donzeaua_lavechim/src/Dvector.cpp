@@ -336,11 +336,10 @@ Dvector operator -(const Dvector & v1, const Dvector & v2){
 }
 
 std::ostream & operator <<(std::ostream &Out, const Dvector &v){
-  Dvector vec(v);
   Out << "[ ";
 
-  for (int i=0; i<vec.size(); i++){
-    Out<<vec(i)<<" ";
+  for (int i=0; i<v.size(); i++){
+    Out<<v(i)<<" ";
   }
   Out<<"]";
   Out<<std::endl;
@@ -348,7 +347,6 @@ std::ostream & operator <<(std::ostream &Out, const Dvector &v){
 }
 
 std::istream & operator >>(std::istream &In, Dvector &v){
-  //Dvector vec(v);
   for (int i=0; i<v.size(); i++){
     In>>v(i);
   }
