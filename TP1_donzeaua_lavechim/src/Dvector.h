@@ -24,6 +24,7 @@ public:
   void fillRandomly();
   void resize(int newDim);
   void resize(int newDim, double val);
+  double norm();
   /* OPERATOR */
   double& operator()(int i);
   double const & operator()(int i) const;
