@@ -1,10 +1,7 @@
 #include "Dvector.h"
-#include <string>
-#include <stdexcept>
-#include <cstdlib>
 #include <ctime>
 #include <cstring>
-
+#include <cmath>
 
 void Dvector::init(int d){
   if (d>0) {
@@ -136,6 +133,14 @@ void Dvector::resize(int newDim, double val){
   }
 }
 
+double Dvector::norm() {
+    double norme=0;
+    for (int i = 0 ; i<this->dim; i++){
+        norme += vect[i]*vect[i];
+    }
+    return sqrt(norme);
+}
+
 /* OPERATEUR INTERNES */
 
 double const & Dvector::operator()(int i) const{
@@ -217,9 +222,10 @@ Dvector & Dvector::operator+=(const Dvector v) {
 		  for(int i = 0; i<dim; i++) {
 		  	vect[i] += v(i);
 		  }
-		} else {
-			throw std::invalid_argument("Addition de 2 vecteurs de taille différentes.\n");
-		}
+    } else {
+		throw std::invalid_argument("Addition de 2 vecteurs de taille différentes.\n");
+	}
+    return *this;
 }
 
 Dvector & Dvector::operator-=(const Dvector v) { 
@@ -230,6 +236,7 @@ Dvector & Dvector::operator-=(const Dvector v) {
     } else {
     	throw std::invalid_argument("Soustraction de 2 vecteurs de taille différentes.\n");
     }
+    return *this;
 }
 
 
