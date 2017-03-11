@@ -47,7 +47,7 @@ int main() {
 	Dvector v5("../tests/testFile.txt");
 	assert(v5.size() == 10);
 	v5.display(str);
-	//Problème de format visiblement : demander au prof.
+	//Problème de format de flottant visiblement : demander au prof.
 	//assert(str.str() == "1.6218231e-01\n7.9428454e-01\n3.1121504e-01\n5.2853314e-01\n1.6564873e-01\n6.0198194e-01\n2.6297128e-01\n6.5407910e-01\n6.8921450e-01\n7.4815159e-01");
 	std::cout << "Constructeur avec lecture de fichier : OK\n";
 

@@ -8,19 +8,24 @@
 #include "Height.h"
 
 //Constructeurs et méthodes d'initialisation
-Height::Height() {
-	Lx = 0;
-	Ly = 0;
-	nx = 0;
-	ny = 0;
-}
-
-Height::Height(double Lx, double Ly, int nx, int ny) {
+void Height::init(double Lx, double Ly, int nx, int ny) {
 	this->Lx = Lx;
 	this->Ly = Ly;
 	this->nx = nx;
 	this->ny = ny;
-	
+}
+
+Height::Height() {
+	this->init(0,0,0,0);
+}
+
+Height::Height(const Height & h) {
+  this->init(h.Lx, h.Ly, h.nx, h.ny);
+	hauteurs = Dvector(h.hauteurs);
+}
+
+Height::Height(double Lx, double Ly, int nx, int ny) {
+	this->init(Lx, Ly, nx, ny);
 	hauteurs = Dvector(nx*ny);
 }
 

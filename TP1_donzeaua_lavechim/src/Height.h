@@ -21,11 +21,13 @@ class Height {
 	int nx;
 	int ny;
 	Dvector hauteurs;
+	void init(double Lx, double Ly, int nx, int ny);
 	
 	public:
-	
 	//Constructeurs et méthodes d'initialisation
-	Height() ;
+	
+	Height();
+	Height(const Height & h);
 	Height(double Lx,double Ly,int nx,int ny);
 	
 	void fill(const Dvector &v);
