@@ -1,5 +1,6 @@
 #include "GerstnerWave.h"
 #include <cmath>
+#include <stdexcept>
 
 GerstnerWave::GerstnerWave(Dvector X_0, Dvector vectOnde, double phase, double ampli) {
     if (X_0.size() == 2){
@@ -39,6 +40,3 @@ double GerstnerWave::operator()(double x, double y, double t) {
     res = A*cos(prodscal-w*t);
     return res;
 }
-
-
-

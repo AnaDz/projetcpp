@@ -2,9 +2,9 @@
 #include <ctime>
 #include <cstring>
 #include <cmath>
+#include <stdexcept>
 
-
-void Vector<T>::init(int d){
+template<class T> void Vector<T>::init(int d){
     if (d>0) {
         dim = d;
         vect = new T[d];
@@ -16,18 +16,18 @@ void Vector<T>::init(int d){
     }
 }
 
-int Vector<T>::size() const{
+template<class T> int Vector<T>::size() const{
     return dim;
 }
 
-Vector<T>::Vector(){
+template<class T> Vector<T>::Vector(){
     //std::cout << "__Constructeur simple__" << std::endl;
     dim = 0;
     vect = nullptr; //c++ 2011
 }
 
 
-Vector<T>::Vector(int d, T v){
+template<class T> Vector<T>::Vector(int d, T v){
     //std::cout << "__Constructeur dim val__" << std::endl;
     this->init(d);
     for(int i = 0; i<dim; i++){
@@ -35,7 +35,7 @@ Vector<T>::Vector(int d, T v){
     }
 }
 
-Vector<T>::Vector(const Vector<T> & V){
+template<class T> Vector<T>::Vector(const Vector<T> & V){
     //std::cout << "__Constructeur copie__" << std::endl;
     int d = V.dim;
     this->init(d);
@@ -44,7 +44,7 @@ Vector<T>::Vector(const Vector<T> & V){
     }
 }
 
-Vector<T>::Vector(std::string file){
+template<class T> Vector<T>::Vector(std::string file){
 //  std::cout << "__Constructeur fichier__" << std::endl;
     std::ifstream fichier(file.c_str(), std::ios::in);
     if(fichier){
@@ -75,19 +75,19 @@ Vector<T>::Vector(std::string file){
 
 }
 
-Vector::~Vector(){
+template<class T> Vector<T>::~Vector(){
 //  std::cout << "Destruction" << std::endl;
     delete [] vect;
 }
 
-void Vector::display(std::ostream& str) {
+template<class T> void Vector<T>::display(std::ostream& str) {
     for(int i=0; i<dim; i++){
         str<<vect[i]<<"\n";
     }
 }
 
 
-void Vector::fillRandomly(){
+template<class T> void Vector<T>::fillRandomly(){
     srand(time(NULL));
     for(int i=0; i<dim;i++){
         vect[i]= T (rand());
@@ -95,7 +95,7 @@ void Vector::fillRandomly(){
     }
 }
 
-T& Vector::operator()(int i){
+template<class T> T& Vector<T>::operator()(int i){
     if(i<0 || i>= dim){
         throw std::invalid_argument("L'indice d'un vecteur doit être compris entre 0 et dim -1");
     } else {
@@ -103,7 +103,7 @@ T& Vector::operator()(int i){
     }
 }
 
-void Vector::resize(int newDim){
+template<class T> void Vector<T>::resize(int newDim){
     if (this->dim < newDim){
         throw std::invalid_argument("Il faut spécifier une valeur dans l'extension du vecteur");
     } else if(newDim<=0){
@@ -118,7 +118,8 @@ void Vector::resize(int newDim){
         this->dim = newDim;
     }
 }
-void Vector<T> ::resize(int newDim, T val){
+
+template<class T> void Vector<T> ::resize(int newDim, T val){
     if (this->dim < newDim){
         Vector<T> newVect(newDim);
         for (int i = 0; i<this->dim; i++){
@@ -134,7 +135,7 @@ void Vector<T> ::resize(int newDim, T val){
     }
 }
 
-T Vector<T> ::norm() {
+template<class T> T Vector<T> ::norm() {
     T norme=0;
     for (int i = 0 ; i<this->dim; i++){
         norme += vect[i]*vect[i];
@@ -142,7 +143,7 @@ T Vector<T> ::norm() {
     return sqrt(norme);
 }
 
-Vector<T> Vector<T> ::odd(){
+template<class T> Vector<T> Vector<T> ::odd(){
     Vector<T> newvect(this->size()/2);
     for(int i=1; i<this->size(); i+=2){
         newvect(i/2) = this->vect[i];
@@ -150,7 +151,7 @@ Vector<T> Vector<T> ::odd(){
     return newvect;
 }
 
-Vector<T> Vector<T>::even() {
+template<class T> Vector<T> Vector<T>::even() {
     Vector<T> newvect;
     if(this->size()%2 == 0){
         newvect = Vector<T>(this->size()/2 );
@@ -167,7 +168,7 @@ Vector<T> Vector<T>::even() {
 
 /* OPERATEUR INTERNES */
 
-T const & Vector<T>::operator()(int i) const{
+template<class T> T const & Vector<T>::operator()(int i) const{
     if(i<0 || i>= dim){
         throw std::invalid_argument("L'indice d'un vecteur doit être compris entre 0 et dim -1");
     } else {
@@ -175,28 +176,28 @@ T const & Vector<T>::operator()(int i) const{
     }
 }
 
-Vector<T> Vector<T>::operator +=(double d){
+template<class T> Vector<T> Vector<T>::operator +=(double d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] + d;
     }
     return *this;
 }
 
-Vector<T> Vector<T>::operator *=(double d){
+template<class T> Vector<T> Vector<T>::operator *=(double d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] * d;
     }
     return *this;
 }
 
-Vector<T> Vector<T>::operator -=(double d){
+template<class T> Vector<T> Vector<T>::operator -=(double d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] - d;
     }
     return *this;
 }
 
-Vector<T> Vector<T>::operator /=(double d){
+template<class T> Vector<T> Vector<T>::operator /=(double d){
     if (d!=0){
         for(int i=0; i<this->dim; i++){
             this->vect[i] = this->vect[i] / d;
@@ -208,7 +209,7 @@ Vector<T> Vector<T>::operator /=(double d){
 
 }
 
-Vector<T> Vector<T>::operator -(){
+template<class T> Vector<T> Vector<T>::operator -(){
     Vector<T> v(*this);
     for (int i=0; i<v.size(); i++){
         v(i) = -v(i);
@@ -216,7 +217,7 @@ Vector<T> Vector<T>::operator -(){
     return v;
 }
 
-Vector<T>& Vector<T>::operator =(const Vector<T> &v){
+template<class T> Vector<T>& Vector<T>::operator =(const Vector<T> &v){
     // Verifier si on fait a = a (retourner *this)
     // verifier si taille = 0
     //cas a=b si taille différente on réallou a (delete(a.vect
@@ -241,7 +242,7 @@ Vector<T>& Vector<T>::operator =(const Vector<T> &v){
     return *this;
 }
 
-Vector<T> & Vector<T>::operator+=(const Vector<T> v) {
+template<class T> Vector<T> & Vector<T>::operator+=(const Vector<T> v) {
     if(dim == v.size()) {
         for(int i = 0; i<dim; i++) {
             vect[i] += v(i);
@@ -252,7 +253,7 @@ Vector<T> & Vector<T>::operator+=(const Vector<T> v) {
     return *this;
 }
 
-Vector<T> & Vector<T>::operator-=(const Vector<T> v) {
+template<class T> Vector<T> & Vector<T>::operator-=(const Vector<T> v) {
     if(dim == v.size()) {
         for(int i = 0; i<dim; i++) {
             vect[i] -= v(i);
@@ -264,7 +265,7 @@ Vector<T> & Vector<T>::operator-=(const Vector<T> v) {
 }
 
 
-bool Vector<T>::operator ==(const Vector<T> &v){
+template<class T> bool Vector<T>::operator ==(const Vector<T> &v){
     if (v.size()== this->dim){
         bool res = true;
         for (int i=0; i<this->dim; i++){
@@ -279,21 +280,20 @@ bool Vector<T>::operator ==(const Vector<T> &v){
 //___________________FIN CLASSE Vector_______________________//
 
 /* OPERATEUR EXTERNES */
-/*
-Vector<T> operator +(double d, const Vector<T> & v){
+template<class T> Vector<T> operator +(double d, const Vector<T> & v){
     Vector<T> vect(v);
     vect += d;
     return vect;
 }
 
-Vector<T> operator +(const Vector<T> & v, double d){
+template<class T> Vector<T> operator +(const Vector<T> & v, double d){
     Vector<T> vect(v);
     vect += d;
     return vect;
 }
 
 
-Vector<T> operator -(double d, const Vector<T> & v){
+template<class T> Vector<T> operator -(double d, const Vector<T> & v){
     Vector<T> vect(v);
     for(int i=0; i<vect.size(); i++){
         vect(i) = d - vect(i);
@@ -301,26 +301,26 @@ Vector<T> operator -(double d, const Vector<T> & v){
     return vect;
 }
 
-Vector<T> operator -(const Vector<T> & v, double d){
+template<class T> Vector<T> operator -(const Vector<T> & v, double d){
     Vector<T> vect(v);
     vect -=d;
     return vect;
 }
 
 
-Vector<T> operator *(double d, const Vector<T> & v){
+template<class T> Vector<T> operator *(double d, const Vector<T> & v){
     Vector<T> vect(v);
     vect *= d;
     return vect;
 }
 
-Vector<T> operator *(const Vector<T> & v, double d){
+template<class T> Vector<T> operator *(const Vector<T> & v, double d){
     Vector<T> vect(v);
     vect *= d;
     return vect;
 }
 
-Vector<T> operator /(double d, const Vector<T> & v){
+template<class T> Vector<T> operator /(double d, const Vector<T> & v){
     Vector<T> vect(v);
     for(int i=0; i<vect.size(); i++){
         if (vect(i) != 0){
@@ -332,13 +332,13 @@ Vector<T> operator /(double d, const Vector<T> & v){
     return vect;
 }
 
-Vector<T> operator /(const Vector<T> & v, double d){
+template<class T> Vector<T> operator /(const Vector<T> & v, double d){
     Vector<T> vect(v);
     vect /=d;
     return vect;
 }
 
-Vector<T> operator +(const Vector<T> & v1, const Vector<T> & v2){
+template<class T>Vector<T> operator +(const Vector<T> & v1, const Vector<T> & v2){
     Vector<T> v_1(v1);
     Vector<T> v_2(v2);
 
@@ -352,7 +352,7 @@ Vector<T> operator +(const Vector<T> & v1, const Vector<T> & v2){
     }
 }
 
-Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v2){
+template<class T> Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v2){
     Vector<T> v_1(v1);
     Vector<T> v_2(v2);
 
@@ -366,7 +366,7 @@ Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v2){
     }
 }
 
-std::ostream & operator <<(std::ostream &Out, const Vector<T> &v){
+template<class T> std::ostream & operator <<(std::ostream &Out, const Vector<T> &v){
     Vector<T> vec(v);
     Out << "[ ";
 
@@ -378,7 +378,7 @@ std::ostream & operator <<(std::ostream &Out, const Vector<T> &v){
     return Out;
 }
 
-std::istream & operator >>(std::istream &In, Vector<T> &v){
+template<class T> std::istream & operator >>(std::istream &In, Vector<T> &v){
     //Vector<T> vec(v);
     for (int i=0; i<v.size(); i++){
         In>>v(i);
@@ -387,7 +387,7 @@ std::istream & operator >>(std::istream &In, Vector<T> &v){
     return In;
 }
 
-Vector<T>* FFT(Vector<T> realPart, Vector<T> imPart){
+template<class T> Vector<T>* FFT(Vector<T> realPart, Vector<T> imPart){
     if(realPart.size() != imPart.size()){
         throw std::invalid_argument("Tentative de FFT le vecteur réel et imaginaire de taille différente");
     }
@@ -409,8 +409,5 @@ Vector<T>* FFT(Vector<T> realPart, Vector<T> imPart){
         }
     }
 
-
-
-
     return res;
-}*/
+}
