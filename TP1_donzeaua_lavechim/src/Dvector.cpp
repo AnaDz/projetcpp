@@ -2,6 +2,8 @@
 #include <ctime>
 #include <cstring>
 #include <cmath>
+#define M_PI 3.14159265358979323846  /* pi */
+
 
 void Dvector::init(int d){
   if (d>0) {
@@ -141,6 +143,29 @@ double Dvector::norm() {
     return sqrt(norme);
 }
 
+Dvector Dvector::odd(){
+    Dvector newvect(this->size()/2);
+    for(int i=1; i<this->size(); i+=2){
+        newvect(i/2) = this->vect[i];
+    }
+    return newvect;
+}
+
+Dvector Dvector::even() {
+    Dvector newvect;
+    if(this->size()%2 == 0){
+        newvect = Dvector(this->size()/2 );
+    } else {
+        newvect= Dvector(this->size()/2 +1);
+    }
+    for(int i=0; i<this->size(); i+=2){
+        newvect(i/2 +1)=this->vect[i];
+    }
+    return newvect;
+
+}
+
+
 /* OPERATEUR INTERNES */
 
 double const & Dvector::operator()(int i) const{
@@ -217,7 +242,7 @@ Dvector& Dvector::operator =(const Dvector &v){
   return *this;
 }
 
-Dvector & Dvector::operator+=(const Dvector v) { 
+Dvector & Dvector::operator+=(const Dvector v) {
     if(dim == v.size()) {
 		  for(int i = 0; i<dim; i++) {
 		  	vect[i] += v(i);
@@ -228,7 +253,7 @@ Dvector & Dvector::operator+=(const Dvector v) {
     return *this;
 }
 
-Dvector & Dvector::operator-=(const Dvector v) { 
+Dvector & Dvector::operator-=(const Dvector v) {
     if(dim == v.size()) {
 		  for(int i = 0; i<dim; i++) {
 		  	vect[i] -= v(i);
@@ -361,4 +386,36 @@ std::istream & operator >>(std::istream &In, Dvector &v){
   }
 
   return In;
+}
+
+Dvector* FFT(Dvector realPart, Dvector imPart){
+    if(realPart.size() != imPart.size()){
+        throw std::invalid_argument("Tentative de FFT le vecteur réel et imaginaire de taille différente");
+    }
+    Dvector* res = new Dvector[2];
+    int n = realPart.size();
+    if(n <= 1){
+        res[0] = realPart;
+        res[1] = imPart;
+    } else {
+        Dvector evenReal = realPart.even();
+        Dvector evenIm = imPart.even();
+        Dvector oddReal = realPart.odd();
+        Dvector oddIm = imPart.odd();
+        Dvector* evens = FFT(evenReal, evenIm);
+        Dvector* odds = FFT(oddReal, oddIm);
+        for(int k=0; k<n/2; k++){
+            double expo = exp(-2*M_PI*(double)k/n);
+            double Ret = odds[0](k) * expo;
+            double Imt = odds[1](k) * expo;
+
+            res[0](k) = evens[0](k)+Ret;
+            res[1](k) = evens[1](k)+Imt;
+
+            res[0](k+n/2) = evens[0](k)- Ret;
+            res[1](k+n/2) = evens[1](k)- Imt;
+
+        }
+    }
+    return res;
 }

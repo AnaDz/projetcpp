@@ -29,6 +29,9 @@ public:
   double& operator()(int i);
   double const & operator()(int i) const;
 
+  Dvector odd(); // retourne un Dvector avec que les indices impairs
+  Dvector even(); // ----- pairs
+
   Dvector operator +=(double d);
   Dvector operator *=(double d);
   Dvector operator -=(double d);
@@ -57,5 +60,8 @@ Dvector operator -(const Dvector & v1, const Dvector & v2);
 
 std::ostream & operator <<(std::ostream &Out, const Dvector &v);
 std::istream & operator >>(std::istream &In, Dvector &v);
+
+
+Dvector* FFT(Dvector realPart, Dvector imPart);
 
 #endif

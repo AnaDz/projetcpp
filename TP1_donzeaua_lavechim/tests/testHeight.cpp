@@ -1,7 +1,5 @@
 
 #include "Height.h"
-#include "Dvector.h"
-#include <iostream>
 #include <assert.h>
 #include <sstream>
 
