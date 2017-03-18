@@ -6,6 +6,7 @@
 #define VECTOR_H
 #include <fstream>
 #include <iostream>
+#include <complex>
 
 template <class T>
 
@@ -37,10 +38,10 @@ public:
     Vector<T> odd(); // retourne un Vector<T> avec que les indices impairs
     Vector<T> even(); // ----- pairs
 
-    Vector<T> operator +=(double d);
-    Vector<T> operator *=(double d);
-    Vector<T> operator -=(double d);
-    Vector<T> operator /=(double d);
+    Vector<T> operator +=(T d);
+    Vector<T> operator *=(T d);
+    Vector<T> operator -=(T d);
+    Vector<T> operator /=(T d);
     Vector<T> operator -();
     Vector<T>& operator =(const Vector<T> &v);
     Vector<T> & operator+=(const Vector<T> v);
@@ -48,27 +49,27 @@ public:
     bool operator == (const Vector<T> &v);
 };
 
-/*Vector<T> operator +(double d, const Vector<T> & v);
-Vector<T> operator +(const Vector<T> & v, double d);
+template <class T> Vector<T> operator +(T d, const Vector<T> & v);
+template <class T> Vector<T> operator +(const Vector<T> & v, T d);
 
-Vector<T> operator -(double d, const Vector<T> & v);
-Vector<T> operator -(const Vector<T> & v, double d);
+template <class T> Vector<T> operator -(T d, const Vector<T> & v);
+template <class T> Vector<T> operator -(const Vector<T> & v, T d);
 
-Vector<T> operator *(double d, const Vector<T> & v);
-Vector<T> operator *(const Vector<T> & v, double d);
+template <class T> Vector<T> operator *(T d, const Vector<T> & v);
+template <class T> Vector<T> operator *(const Vector<T> & v, T d);
 
-Vector<T> operator /(double d, const Vector<T> & v);
-Vector<T> operator /(const Vector<T> & v, double d);
+template <class T> Vector<T> operator /(const Vector<T> & v, T d);
 
-Vector<T> operator +(const Vector<T> & v1, const Vector<T> & v2);
-Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v2);
+template <class T> Vector<T> operator +(const Vector<T> & v1, const Vector<T> & v2);
+template <class T> Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v2);
 
-std::ostream & operator <<(std::ostream &Out, const Vector<T> &v);
-std::istream & operator >>(std::istream &In, Vector<T> &v);
+template <class T> std::ostream & operator <<(std::ostream &Out, const Vector<T> &v);
+template <class T> std::istream & operator >>(std::istream &In, Vector<T> &v);
 
 
-Vector<T>* FFT(Vector<T> realPart, Vector<T> imPart);*/
 
+void FFT(Vector<std::complex<double>> & vecteur);
+void iFFT(Vector<std::complex<double>> & vecteur);
 
 #include "Vector.tpp"
 #endif //VECTOR_H

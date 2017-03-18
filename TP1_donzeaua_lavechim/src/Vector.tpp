@@ -4,6 +4,9 @@
 #include <cmath>
 #include <stdexcept>
 
+
+
+
 template<class T> void Vector<T>::init(int d){
     if (d>0) {
         dim = d;
@@ -176,29 +179,29 @@ template<class T> T const & Vector<T>::operator()(int i) const{
     }
 }
 
-template<class T> Vector<T> Vector<T>::operator +=(double d){
+template<class T> Vector<T> Vector<T>::operator +=(T d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] + d;
     }
     return *this;
 }
 
-template<class T> Vector<T> Vector<T>::operator *=(double d){
+template<class T> Vector<T> Vector<T>::operator *=(T d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] * d;
     }
     return *this;
 }
 
-template<class T> Vector<T> Vector<T>::operator -=(double d){
+template<class T> Vector<T> Vector<T>::operator -=(T d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] - d;
     }
     return *this;
 }
 
-template<class T> Vector<T> Vector<T>::operator /=(double d){
-    if (d!=0){
+template<class T> Vector<T> Vector<T>::operator /=(T d){
+    if (d!=T()){
         for(int i=0; i<this->dim; i++){
             this->vect[i] = this->vect[i] / d;
         }
@@ -280,20 +283,20 @@ template<class T> bool Vector<T>::operator ==(const Vector<T> &v){
 //___________________FIN CLASSE Vector_______________________//
 
 /* OPERATEUR EXTERNES */
-template<class T> Vector<T> operator +(double d, const Vector<T> & v){
+template<class T> Vector<T> operator +(T d, const Vector<T> & v){
     Vector<T> vect(v);
     vect += d;
     return vect;
 }
 
-template<class T> Vector<T> operator +(const Vector<T> & v, double d){
+template<class T> Vector<T> operator +(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect += d;
     return vect;
 }
 
 
-template<class T> Vector<T> operator -(double d, const Vector<T> & v){
+template<class T> Vector<T> operator -(T d, const Vector<T> & v){
     Vector<T> vect(v);
     for(int i=0; i<vect.size(); i++){
         vect(i) = d - vect(i);
@@ -301,38 +304,27 @@ template<class T> Vector<T> operator -(double d, const Vector<T> & v){
     return vect;
 }
 
-template<class T> Vector<T> operator -(const Vector<T> & v, double d){
+template<class T> Vector<T> operator -(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect -=d;
     return vect;
 }
 
 
-template<class T> Vector<T> operator *(double d, const Vector<T> & v){
+template<class T> Vector<T> operator *(T d, const Vector<T> & v){
     Vector<T> vect(v);
     vect *= d;
     return vect;
 }
 
-template<class T> Vector<T> operator *(const Vector<T> & v, double d){
+template<class T> Vector<T> operator *(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect *= d;
     return vect;
 }
 
-template<class T> Vector<T> operator /(double d, const Vector<T> & v){
-    Vector<T> vect(v);
-    for(int i=0; i<vect.size(); i++){
-        if (vect(i) != 0){
-            vect(i) = d / vect(i);
-        } else {
-            throw std::invalid_argument("Attention : division par 0");
-        }
-    }
-    return vect;
-}
 
-template<class T> Vector<T> operator /(const Vector<T> & v, double d){
+template<class T> Vector<T> operator /(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect /=d;
     return vect;
@@ -387,27 +379,34 @@ template<class T> std::istream & operator >>(std::istream &In, Vector<T> &v){
     return In;
 }
 
-template<class T> Vector<T>* FFT(Vector<T> realPart, Vector<T> imPart){
-    if(realPart.size() != imPart.size()){
-        throw std::invalid_argument("Tentative de FFT le vecteur réel et imaginaire de taille différente");
+
+
+void FFT(Vector<std::complex<double>>& vecteur){
+    int n = vecteur.size();
+    if(n%2 !=0){
+        throw std::invalid_argument("On essaye de calculer la FFT d'un vecteur de taille impaire !");
     }
-    Vector<T>* res = new Vector<T>[2];
-    int n = realPart.size();
-    if(n <= 1){
-        res[1] = realPart;
-        res[2] = imPart;
-    } else {
-        Vector<T> evenReal = realPart.even();
-        Vector<T> evenIm = imPart.even();
-        Vector<T> oddReal = realPart.odd();
-        Vector<T> oddIm = imPart.odd();
-        Vector<T>* evens = FFT(evenReal, evenIm);
-        Vector<T>* odds = FFT(oddReal, oddIm);
+    if(n>1){
+        Vector<std::complex<double>> evens = FFT(vecteur.even());
+        Vector<std::complex<double>> odds = FFT(vecteur.odd());
+
+        std::complex<double> t;
         for(int k=0; k<n/2; k++){
-
-
+            double expo = exp(-2*M_PI*(double)k/n);
+            t = odds(k)*expo;
+            vecteur(k) = evens(k) + t;
+            vecteur(k+n/2) = evens(k)-t;
         }
-    }
 
-    return res;
+    }
 }
+
+void iFFT(Vector<std::complex<double>> & vecteur){
+    int n = vecteur.size();
+    if (n>1){
+        vecteur = conj(vecteur);
+        FFT(vecteur);
+        vecteur= conj(vecteur)/n;
+    }
+}
+
