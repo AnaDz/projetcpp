@@ -37,3 +37,15 @@ void WaveModel::display(std::ostream& str) {
     str << "Longueur d'onde : " << this->longueurOnde << "\n";
     str << "Ajustement de la vague : " << this->ajustVague << "\n";
 }
+
+void WaveModel::init_param(double dirV, double alignV,double inten, double lambda, double ajustV){
+  directionVent = dirV; // entre  et 2*pi
+  alignementVent = alignV;
+  intensite = inten;
+  longueurOnde = lambda;
+  ajustVague = ajustV;
+}
+
+ WaveModel::~WaveModel() {
+
+ }

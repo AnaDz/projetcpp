@@ -44,8 +44,19 @@ void Height::fill(const Dvector &v) {
 }
 
 //Opérateurs
+//Accès en lecture
+double const & Height::operator() (double x, double y) const {
+	if( (x < 0 || x > Lx) || (y < 0 || y > Ly) ) {
+		throw std::invalid_argument("Vous essayez d'accéder à un élément en dehors de la matrice de hauteurs.\n");
+	} else {
+		int i = floor(x*nx/Lx);
+		int j = floor(y*ny/Ly);
+		return hauteurs(i*nx+j); //que faire de t ?
+	}
+}
 
-double const & Height::operator() (double x, double y, double t) const {
+//Accès en écriture
+double & Height::operator() (double x, double y) {
 	if( (x < 0 || x > Lx) || (y < 0 || y > Ly) ) {
 		throw std::invalid_argument("Vous essayez d'accéder à un élément en dehors de la matrice de hauteurs.\n");
 	} else {
@@ -68,7 +79,7 @@ std::ostream & operator <<(std::ostream &Out, const Height &h){
     for(int j=0; j <= ny; j++) {
     	x = i*Lx/nx;
     	y = j*Ly/ny;
-    	Out<<"("<< x <<","<< y << "," << h(x,y,0) <<")\n";	//que faire du temps ?
+    	Out<<"("<< x <<","<< y << "," << h(x,y) <<")\n";	//que faire du temps ?
     }
   }
 
@@ -105,4 +116,3 @@ void Height::display(std::ostream& str) const {
 		str << "\n ";
 	}
 }
-

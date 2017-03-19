@@ -15,11 +15,39 @@ GerstnerWave::GerstnerWave(Dvector X_0, Dvector vectOnde, double phase, double a
     }
     this->phi=phase;
     this->A = ampli;
+    this->w = sqrt(g*vectOnde.norm());
 }
 
-GerstnerWave::~GerstnerWave() {
-
+bool GerstnerWave::operator==(const GerstnerWave &GW){
+  // Verifier si on fait a = a (retourner *this)
+  // verifier si taille = 0
+  //cas a=b si taille différente on réallou a (delete(a.vect
+  if(this->X0 == GW.X0 && this->k == GW.k && this->w == GW.w && this->phi == GW.phi && this->A == GW.A) {
+    return true;
+  }
+  return false;
 }
+
+GerstnerWave& GerstnerWave::operator=(const GerstnerWave &GW){
+  // Verifier si on fait a = a (retourner *this)
+  // verifier si taille = 0
+  //cas a=b si taille différente on réallou a (delete(a.vect
+  if(*this==GW){
+    return *this;
+  } else {
+    this->X0 = GW.X0; // condition initiale  z=0
+    this->k = GW.k; // vecteur d'onde
+    this->w = GW.w; // fréquence
+    this->phi = GW.phi; //phase
+    this->A = GW.A; //amplitude
+  }
+
+  return *this;
+}
+
+/*GerstnerWave::~GerstnerWave() {
+
+}*/
 
 void GerstnerWave::display(std::ostream& str) {
     str<< "Point X0 : ";
