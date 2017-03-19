@@ -5,3 +5,5 @@ exe
 Makefile
 *~
 TP1_donzeaua_lavechim/build/
+TP1_donzeaua_lavechim/cmake-build-debug/
+TP1_donzeaua_lavechim/.idea/

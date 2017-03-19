@@ -4,6 +4,9 @@
 #include <cmath>
 #include <stdexcept>
 
+
+
+
 template<class T> void Vector<T>::init(int d){
     if (d>0) {
         dim = d;
@@ -46,7 +49,8 @@ template<class T> Vector<T>::Vector(const Vector<T> & V){
 
 template<class T> Vector<T>::Vector(std::string file){
 //  std::cout << "__Constructeur fichier__" << std::endl;
-    std::ifstream fichier(file.c_str(), std::ios::in);
+
+    std::ifstream fichier (file.c_str(), std::ios::in);
     if(fichier){
         int d = 0;
         T val;
@@ -56,23 +60,19 @@ template<class T> Vector<T>::Vector(std::string file){
         }
         fichier.close();
         init(d);
+        int i = 0;
+        std::ifstream refichier(file.c_str(), std::ios::in);
+        if(refichier) {
+            T val;
+            while (refichier >> val) {
+                vect[i] = val;
+                i++;
+            }
+            refichier.close();
+        }
     }else {
         init(0);
     }
-
-    int i = 0;
-    std::ifstream refichier(file.c_str(), std::ios::in);
-    if(refichier){
-        T val;
-        while (refichier>>val)
-        {
-            vect[i] = val;
-            i++;
-        }
-        refichier.close();
-    }
-
-
 }
 
 template<class T> Vector<T>::~Vector(){
@@ -97,7 +97,8 @@ template<class T> void Vector<T>::fillRandomly(){
 
 template<class T> T& Vector<T>::operator()(int i){
     if(i<0 || i>= dim){
-        throw std::invalid_argument("L'indice d'un vecteur doit être compris entre 0 et dim -1");
+        std::cout <<i << "\n";
+        throw std::invalid_argument("L'indice d'un vecteur doit être compris entre 0 et dim -1 ");
     } else {
         return vect[i];
     }
@@ -159,7 +160,7 @@ template<class T> Vector<T> Vector<T>::even() {
         newvect= Vector<T>(this->size()/2 +1);
     }
     for(int i=0; i<this->size(); i+=2){
-        newvect(i/2 +1)=this->vect[i];
+        newvect(i/2)=this->vect[i];
     }
     return newvect;
 
@@ -176,29 +177,29 @@ template<class T> T const & Vector<T>::operator()(int i) const{
     }
 }
 
-template<class T> Vector<T> Vector<T>::operator +=(double d){
+template<class T> Vector<T> Vector<T>::operator +=(T d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] + d;
     }
     return *this;
 }
 
-template<class T> Vector<T> Vector<T>::operator *=(double d){
+template<class T> Vector<T> Vector<T>::operator *=(T d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] * d;
     }
     return *this;
 }
 
-template<class T> Vector<T> Vector<T>::operator -=(double d){
+template<class T> Vector<T> Vector<T>::operator -=(T d){
     for(int i=0; i<this->dim; i++){
         this->vect[i] = this->vect[i] - d;
     }
     return *this;
 }
 
-template<class T> Vector<T> Vector<T>::operator /=(double d){
-    if (d!=0){
+template<class T> Vector<T> Vector<T>::operator /=(T d){
+    if (d!=T()){
         for(int i=0; i<this->dim; i++){
             this->vect[i] = this->vect[i] / d;
         }
@@ -280,20 +281,20 @@ template<class T> bool Vector<T>::operator ==(const Vector<T> &v){
 //___________________FIN CLASSE Vector_______________________//
 
 /* OPERATEUR EXTERNES */
-template<class T> Vector<T> operator +(double d, const Vector<T> & v){
+template<class T> Vector<T> operator +(T d, const Vector<T> & v){
     Vector<T> vect(v);
     vect += d;
     return vect;
 }
 
-template<class T> Vector<T> operator +(const Vector<T> & v, double d){
+template<class T> Vector<T> operator +(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect += d;
     return vect;
 }
 
 
-template<class T> Vector<T> operator -(double d, const Vector<T> & v){
+template<class T> Vector<T> operator -(T d, const Vector<T> & v){
     Vector<T> vect(v);
     for(int i=0; i<vect.size(); i++){
         vect(i) = d - vect(i);
@@ -301,38 +302,27 @@ template<class T> Vector<T> operator -(double d, const Vector<T> & v){
     return vect;
 }
 
-template<class T> Vector<T> operator -(const Vector<T> & v, double d){
+template<class T> Vector<T> operator -(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect -=d;
     return vect;
 }
 
 
-template<class T> Vector<T> operator *(double d, const Vector<T> & v){
+template<class T> Vector<T> operator *(T d, const Vector<T> & v){
     Vector<T> vect(v);
     vect *= d;
     return vect;
 }
 
-template<class T> Vector<T> operator *(const Vector<T> & v, double d){
+template<class T> Vector<T> operator *(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect *= d;
     return vect;
 }
 
-template<class T> Vector<T> operator /(double d, const Vector<T> & v){
-    Vector<T> vect(v);
-    for(int i=0; i<vect.size(); i++){
-        if (vect(i) != 0){
-            vect(i) = d / vect(i);
-        } else {
-            throw std::invalid_argument("Attention : division par 0");
-        }
-    }
-    return vect;
-}
 
-template<class T> Vector<T> operator /(const Vector<T> & v, double d){
+template<class T> Vector<T> operator /(const Vector<T> & v, T d){
     Vector<T> vect(v);
     vect /=d;
     return vect;
@@ -387,27 +377,47 @@ template<class T> std::istream & operator >>(std::istream &In, Vector<T> &v){
     return In;
 }
 
-template<class T> Vector<T>* FFT(Vector<T> realPart, Vector<T> imPart){
-    if(realPart.size() != imPart.size()){
-        throw std::invalid_argument("Tentative de FFT le vecteur réel et imaginaire de taille différente");
+
+Vector<std::complex<double>> conj(Vector<std::complex<double>> v){
+    int n = v.size();
+    Vector<std::complex<double>> res(n);
+    for (int i =0; i<n; i++){
+        res(i) = std::conj(v(i));
     }
-    Vector<T>* res = new Vector<T>[2];
-    int n = realPart.size();
-    if(n <= 1){
-        res[1] = realPart;
-        res[2] = imPart;
-    } else {
-        Vector<T> evenReal = realPart.even();
-        Vector<T> evenIm = imPart.even();
-        Vector<T> oddReal = realPart.odd();
-        Vector<T> oddIm = imPart.odd();
-        Vector<T>* evens = FFT(evenReal, evenIm);
-        Vector<T>* odds = FFT(oddReal, oddIm);
-        for(int k=0; k<n/2; k++){
-
-
-        }
-    }
-
     return res;
 }
+
+void FFT(Vector<std::complex<double>>& vecteur){
+    int n = vecteur.size();
+    if(n>1){
+        if(n%2 !=0){
+            throw std::invalid_argument("On essaye de calculer la FFT d'un vecteur de taille impaire !");
+        }
+        Vector<std::complex<double>> evens(vecteur.even());
+        FFT(evens);
+        Vector<std::complex<double>> odds(vecteur.odd());
+        FFT(odds);
+
+        std::complex<double> t;
+        for(int k=0; k<n/2; k++){
+            double expo = exp(-2*M_PI*(double)k/n);
+            t = odds(k)*expo;
+            vecteur(k) = evens(k) + t;
+            vecteur(k+(n/2)) = evens(k)-t;
+        }
+
+    }
+}
+
+void iFFT(Vector<std::complex<double>> & vecteur){
+    int n = vecteur.size();
+    std::complex<double>n_complex((double) n, 0.0);
+    if (n>1){
+        vecteur = conj(vecteur);
+        FFT(vecteur);
+        vecteur= conj(vecteur)/n_complex;
+    }
+}
+
+
+

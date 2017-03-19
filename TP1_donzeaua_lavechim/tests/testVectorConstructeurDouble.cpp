@@ -9,7 +9,7 @@
 
 int main() {
 
-	  std::stringstream str;
+	std::stringstream str;
     Vector<double> v1;
   	assert(v1.size() == 0);
   	v1.display(str);
@@ -42,6 +42,7 @@ int main() {
   	Vector<double> v5("../tests/testFile.txt");
   	assert(v5.size() == 10);
   	v5.display(str);
+    assert(str.str()=="0.162182\n0.794285\n0.311215\n0.528533\n0.165649\n0.601982\n0.262971\n0.654079\n0.689214\n0.748152\n");
   	std::cout << "Constructeur avec lecture de fichier : OK\n";
 
   	return 0;
