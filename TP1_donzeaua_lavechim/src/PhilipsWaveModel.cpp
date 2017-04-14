@@ -8,6 +8,7 @@
 #include <complex>
 
 
+
 PhilipsWaveModel::PhilipsWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV){
     init_param(dirV,alignV,inten,lambda,ajustV);
 }
@@ -104,5 +105,3 @@ std::complex<double> PhilipsWaveModel::operator()(int n, int m, double t){
     }
     return h;
 }
-
-

@@ -2,12 +2,14 @@
 
 add_library(src
 	SHARED
-	Dvector.cpp
+	Vector.tpp
+	#Dvector.cpp ancienne version de Vector.tpp
 	Height.cpp
 	WaveModel.cpp
 	GerstnerWave.cpp 
 	GerstnerWaveModel.cpp
-	PhilipsWaveModel.cpp )
+	PhilipsWaveModel.cpp
+	Ocean.cpp )
 	
 install (TARGETS src
 	DESTINATION lib)

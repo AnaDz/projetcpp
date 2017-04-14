@@ -392,16 +392,16 @@ template<class T> std::istream & operator >>(std::istream &In, Vector<T> &v){
 }
 
 
-Vector<std::complex<double>> conj(Vector<std::complex<double>> v){
+Vector<std::complex<double>> inline conj(Vector<std::complex<double>> v){
     int n = v.size();
-    Vector<std::complex<double>> res(n);
-    for (int i =0; i<n; i++){
-        res(i) = std::conj(v(i));
-    }
+    Vector<std::complex<double>> res(n);        //\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\//
+    for (int i =0; i<n; i++){                   //        /!\ inline indispensable /!\          //
+        res(i) = std::conj(v(i));               //  /!\ pour éviter la multiple définition /!\  //
+    }                                           //\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\//
     return res;
 }
 
-void FFT(Vector<std::complex<double>>& vecteur){
+void inline FFT(Vector<std::complex<double>>& vecteur){
     int n = vecteur.size();
     if(n>1){
         if(n%2 !=0){
@@ -423,7 +423,7 @@ void FFT(Vector<std::complex<double>>& vecteur){
     }
 }
 
-void iFFT(Vector<std::complex<double>> & vecteur){
+void inline iFFT(Vector<std::complex<double>> & vecteur){
     int n = vecteur.size();
     std::complex<double>n_complex((double) n, 0.0);
     if (n>1){
@@ -432,6 +432,3 @@ void iFFT(Vector<std::complex<double>> & vecteur){
         vecteur= conj(vecteur)/n_complex;
     }
 }
-
-
-

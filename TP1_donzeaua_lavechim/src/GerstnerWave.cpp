@@ -2,7 +2,7 @@
 #include <cmath>
 #include <stdexcept>
 
-GerstnerWave::GerstnerWave(Dvector X_0, Dvector vectOnde, double phase, double ampli) {
+GerstnerWave::GerstnerWave(Vector<double> X_0, Vector<double> vectOnde, double phase, double ampli) {
     if (X_0.size() == 2){
         this->X0 = X_0;
     } else {

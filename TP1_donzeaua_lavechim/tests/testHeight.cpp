@@ -20,7 +20,7 @@ int main() {
 	std::cout << "Accesseurs Nx et Ny : OK\n";
 
 	str.str("");
-	Dvector v1(9, 200);
+	Vector<double> v1(9, 200);
 	h.fill(v1);
 	h.display(str);
 	assert(str.str() == " 200 200 200 \n 200 200 200 \n 200 200 200 \n ");
@@ -36,7 +36,7 @@ int main() {
 
 
 	str.str("");
-	Dvector v2(9);
+	Vector<double> v2(9);
 	std::stringstream str2;
 	str2 << "1\n2\n3\n4\n5\n6\n7\n8\n9";
 	str2 >> v2;
@@ -44,5 +44,12 @@ int main() {
 	str << h2;
 	assert(str.str() == "(0,0,1)\n(0,5,2)\n(0,10,3)\n(5,0,3)\n(5,5,4)\n(5,10,5)\n(10,0,5)\n(10,5,6)\n(10,10,7)\n\n");
 	std::cout << "Opérateur de flux << : OK\n";
+
+	str.str("");
+	Height h3(10, 10, 2 ,2);
+	h3 = h2;
+	str << h3;
+	assert(str.str() == "(0,0,1)\n(0,5,2)\n(0,10,3)\n(5,0,3)\n(5,5,4)\n(5,10,5)\n(10,0,5)\n(10,5,6)\n(10,10,7)\n\n");
+	std::cout << "Opérateur de recopie pour dimensions différentes: OK\n";
 	return 0;
 }

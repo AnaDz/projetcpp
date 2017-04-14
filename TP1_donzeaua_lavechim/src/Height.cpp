@@ -7,6 +7,7 @@
 
 #include "Height.h"
 #include <math.h>
+
 //Constructeurs et méthodes d'initialisation
 void Height::init(double Lx, double Ly, int nx, int ny) {
 	this->Lx = Lx;
@@ -21,32 +22,32 @@ Height::Height() {
 
 Height::Height(const Height & h) {
   this->init(h.Lx, h.Ly, h.nx, h.ny);
-	hauteurs = Dvector(h.hauteurs);
+	//this->hauteurs = new Vector<double>(h.hauteurs);
 }
 
 Height::Height(double Lx, double Ly, int nx, int ny) {
 	this->init(Lx, Ly, nx, ny);
-	hauteurs = Dvector((nx+1)*(ny+1));
+	//this->hauteurs = Vector<double>((nx+1)*(ny+1));
 }
 
-Height::Height(double Lx, double Ly, int nx, int ny, const Dvector &v) {
+Height::Height(double Lx, double Ly, int nx, int ny, const Vector<double> &v) {
 	this->init(Lx,Ly,nx,ny);
-	hauteurs = Dvector((nx+1)*(ny+1));
+	//this->hauteurs = Vector<double>((nx+1)*(ny+1));
 	this->fill(v);
 }
 
-void Height::fill(const Dvector &v) {
+void Height::fill(const Vector<double> &v) {
 	if(v.size() != (nx+1)*(ny+1)) {
 		throw std::invalid_argument("Vous essayez d'initialiser une matrice de hauteurs avec un vecteur qui possède une taille incompatible.\n");
 	} else {
-		hauteurs = Dvector(v);
+		hauteurs = Vector<double>(v);
 	}
 }
 
 //Opérateurs
 //Accès en lecture
 double const & Height::operator() (double x, double y) const {
-	if( (x < 0 || x > Lx) || (y < 0 || y > Ly) ) {
+	if((x < 0 || x > Lx) || (y < 0 || y > Ly)) {
 		throw std::invalid_argument("Vous essayez d'accéder à un élément en dehors de la matrice de hauteurs.\n");
 	} else {
 		int i = floor(x*nx/Lx);
@@ -66,6 +67,31 @@ double & Height::operator() (double x, double y) {
 	}
 }
 
+//Opérateur de recopie
+Height & Height::operator=(const Height & h) {
+	if(*this == h){
+			return *this;
+	} else {
+		//On supprime s'ils sont de dimensions différentes
+		if(this->Lx != h.Lx || this->Ly != h.Ly || this->nx != h.nx || this->ny != h.ny) {
+			delete &(this->hauteurs);
+			init(h.getLx(), h.getLy(), h.getNx(), h.getNy());
+		}
+
+		this->hauteurs = h.hauteurs;
+	}
+
+	return *this;
+}
+
+//Opérateur d'égalité
+bool Height::operator==(const Height & h) {
+	if(this->Lx != h.Lx || this->Ly != h.Ly || this->nx != h.nx || this->ny != h.ny) {
+		return false;
+	}
+	return (this->hauteurs == h.hauteurs);
+}
+
 //Opérateurs de flux
 std::ostream & operator <<(std::ostream &Out, const Height &h){
 
@@ -79,7 +105,7 @@ std::ostream & operator <<(std::ostream &Out, const Height &h){
     for(int j=0; j <= ny; j++) {
     	x = i*Lx/nx;
     	y = j*Ly/ny;
-    	Out<<"("<< x <<","<< y << "," << h(x,y) <<")\n";	//que faire du temps ?
+    	Out<<"("<< x <<","<< y << "," << h(x,y) <<")\n";
     }
   }
 

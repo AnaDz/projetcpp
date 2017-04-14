@@ -41,7 +41,7 @@ int main() {
     std::cout << "Constructeur par copie : OK\n";
 
     str.str("");
-    Vector<std::complex<double>> v5("../tests/testFile2.txt");
+    Vector<std::complex<double>> v5("../tests/testFiles/testFile2.txt");
     assert(v5.size() == 6);
     v5.display(str);
     assert(str.str() == "(1,2)\n(1,2)\n(2,1)\n(1,2)\n(1,2)\n(1,2)\n");
@@ -49,4 +49,3 @@ int main() {
 
     return 0;
 }
-
