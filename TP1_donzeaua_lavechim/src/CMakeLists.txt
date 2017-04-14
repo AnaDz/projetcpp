@@ -7,7 +7,7 @@ add_library(src
 	WaveModel.cpp
 	GerstnerWave.cpp 
 	GerstnerWaveModel.cpp
-	)
+	PhilipsWaveModel.cpp )
 	
 install (TARGETS src
 	DESTINATION lib)

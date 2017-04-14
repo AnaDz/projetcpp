@@ -356,6 +356,20 @@ template<class T> Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v
     }
 }
 
+template <class T> T operator *(const Vector<T> & v1, const Vector<T> & v2){
+    T res;
+    if(v1.size() == v2.size()){
+        res = v1(0)*v2(0);
+        for(int i=1; i<v1.size();i++){
+            res += v1(i)*v2(i);
+        }
+    } else {
+        throw std::invalid_argument("Produit scalaire entre vecteurs de taille différente");
+    }
+    return res;
+}
+
+
 template<class T> std::ostream & operator <<(std::ostream &Out, const Vector<T> &v){
     Vector<T> vec(v);
     Out << "[ ";

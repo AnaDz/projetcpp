@@ -62,6 +62,7 @@ template <class T> Vector<T> operator /(const Vector<T> & v, T d);
 
 template <class T> Vector<T> operator +(const Vector<T> & v1, const Vector<T> & v2);
 template <class T> Vector<T> operator -(const Vector<T> & v1, const Vector<T> & v2);
+template <class T> T operator *(const Vector<T> & v1, const Vector<T> & v2);
 
 template <class T> std::ostream & operator <<(std::ostream &Out, const Vector<T> &v);
 template <class T> std::istream & operator >>(std::istream &In, Vector<T> &v);
