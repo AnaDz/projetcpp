@@ -31,7 +31,7 @@ class Height {
 		Height(const Height & h);
 		Height(double Lx,double Ly,int nx,int ny);
 		Height(double Lx, double Ly, int nx, int ny, const Vector<double> &v);
-
+		~Height();
 		void fill(const Vector<double> &v);
 
 		//Opérateurs

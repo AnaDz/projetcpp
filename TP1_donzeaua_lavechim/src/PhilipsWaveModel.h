@@ -16,11 +16,11 @@ private:
     std::complex<double> h_tilde(Vector<std::complex<double> > k, double t);
     std::complex<double> P(Vector<std::complex<double>> k);
 public:
-    PhilipsWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV);
-    PhilipsWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV, Height h);
+    PhilipsWaveModel(double dirV, double alignV, double inten, double lambda, double ajustV);
+    PhilipsWaveModel(double dirV, double alignV, double inten, double lambda, double ajustV, const Height & h);
     ~PhilipsWaveModel();
-
-    Vector<std::complex<double>> operator()(int n, int m, double t);
+    Height getH();
+    double operator()(double x, double y, double t);
 
 
 };

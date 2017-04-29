@@ -13,10 +13,9 @@ PhilipsWaveModel::PhilipsWaveModel(double dirV, double alignV, double inten,doub
     init_param(dirV,alignV,inten,lambda,ajustV);
 }
 
-PhilipsWaveModel::PhilipsWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV, Height h){
+PhilipsWaveModel::PhilipsWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV, const Height & h){
     init_param(dirV,alignV,inten,lambda,ajustV);
-    height = h;
-    // TODO !! Le = de height
+    this->height = h;
 }
 
 PhilipsWaveModel::~PhilipsWaveModel(){
@@ -25,6 +24,7 @@ PhilipsWaveModel::~PhilipsWaveModel(){
 
 double getDouble(double min,double max)//Renvoie un double entre min et max
 {
+    srand(time(NULL));
     return  (min + (((float) rand() / RAND_MAX) * (max - min)));
 }
 double getGauss(double m, double e)     //Renvoie un nombre selon une distribution gaussienne centree en m et d'ecart-type e
@@ -50,6 +50,7 @@ double w(Vector<std::complex<double>> k){
     return sqrt(g*k.norm().real());
 }
 std::complex<double> PhilipsWaveModel::P(Vector<std::complex<double>> k){
+    if(k.norm()==std::complex<double>(0,0)){ return  std::complex<double>(0,0);}
     std::complex<double> res = std::complex<double>(0,0);
     double A = 3.0; //????
     // vitesse du vent
@@ -77,31 +78,30 @@ std::complex<double> PhilipsWaveModel::h_tilde(Vector<std::complex<double> > k, 
     return res;
 }
 
-Vector<std::complex<double>> PhilipsWaveModel::operator()(int n, int m, double t){
+double PhilipsWaveModel::operator()(double x, double y, double t){
     int N = height.getNx();
     int M = height.getNy();
     double Lx = height.getLx();
     double Ly = height.getLy();
-    if(abs(n)>N/2 && abs(m)>M/2){
-        throw std::invalid_argument("mauvais argument pour le modèle de Philips n ou m hors des bornes");
-    }
-    Vector<std::complex<double>> x(2);
-    x(0) = std::complex<double>((double)n*Lx/N,0.0);
-    x(1) = std::complex<double>((double)m*Ly/M,0.0);
+    Vector<std::complex<double>> X(2);
+    X(0) = floor(x*N/Lx);
+    X(1) = floor(y*M/Ly);
     Vector<std::complex<double>> k(2);
-
-
-
-    Vector<std::complex<double>> h(N*M);
-
+    std::complex<double> h(0,0);
 
     for (int i=-N/2; i<N/2+1;i++){
-        for (int j=-M/2; i<M/2+1;j++){
+        for (int j=-M/2; j<M/2+1;j++){
             k(0) = std::complex<double>((double)2*M_PI*i/Lx,0.0);
             k(1) = std::complex<double>((double)2*M_PI*j/Ly,0.0);
-            h(i*M+N)= h_tilde(k, t);
+            std::complex<double> prod = k*X;
+            h = h + h_tilde(k, t)*std::exp(std::complex<double>(0,1)*prod);
         }
     }
-    FFT(h);
-    return h;
+
+    this->height(X(0).real(), X(1).real()) = h.real();
+    return h.real();
+}
+
+Height PhilipsWaveModel::getH() {
+    return height;
 }
