@@ -20,9 +20,12 @@ Height::Height() {
 	this->init(0,0,0,0);
 }
 
+Height::~Height(){
+}
+
 Height::Height(const Height & h) {
-	this->init(h.Lx, h.Ly, h.nx, h.ny);
-	this->hauteurs = Vector<double>(h.hauteurs);
+    this->init(h.Lx, h.Ly, h.nx, h.ny);
+    this->hauteurs = Vector<double>(h.hauteurs);
 }
 
 Height::Height(double Lx, double Ly, unsigned int nx, unsigned int ny) {
@@ -74,7 +77,9 @@ Height & Height::operator=(const Height & h) {
 	} else {
 		//On supprime s'ils sont de dimensions différentes
 		if(this->Lx != h.Lx || this->Ly != h.Ly || this->nx != h.nx || this->ny != h.ny) {
-			delete &(this->hauteurs);
+            if(this->hauteurs.size() != 0){
+                delete &(this->hauteurs);
+            }
 			init(h.getLx(), h.getLy(), h.getNx(), h.getNy());
 		}
 
