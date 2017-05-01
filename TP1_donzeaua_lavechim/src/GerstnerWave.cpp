@@ -53,7 +53,7 @@ void GerstnerWave::display(std::ostream& str) {
     str<< "Point X0 : ";
     X0.display(str);
     str<<"\n";
-    str<< "Vecteur d'onde :";
+    str<< "Vecteur d'onde : ";
     k.display(str);
     str << "\n";
     str<< "Phase : " << phi << "\n";

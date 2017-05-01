@@ -13,7 +13,7 @@ template <class T>
 class Vector {
 
 private:
-    int dim;
+    unsigned int dim;
     T* vect;
     void init(int d);
 
@@ -26,7 +26,7 @@ public:
     ~Vector<T>();
 
     void display(std::ostream& str);
-    int size() const; //const = interdit de modif l'objet
+    unsigned int size() const; //const = interdit de modif l'objet
     void fillRandomly();
     void resize(int newDim);
     void resize(int newDim, T val);

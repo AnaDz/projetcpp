@@ -3,7 +3,6 @@
 add_library(src
 	SHARED
 	Vector.tpp
-	#Dvector.cpp ancienne version de Vector.tpp
 	Height.cpp
 	WaveModel.cpp
 	GerstnerWave.cpp 

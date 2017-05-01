@@ -21,6 +21,8 @@ void GerstnerWaveModel::addGerstnerWave(const GerstnerWave & W){
 double GerstnerWaveModel::operator()(double x, double y, double t) {
   std::cout << "Not implemented yet\n";
   double res = 0;
+  std::list<GerstnerWave*>::iterator i;
+
   return res;
 }
 
@@ -35,4 +37,10 @@ void GerstnerWaveModel::display(std::ostream& str) {
   std::cout << "Intensité du vent : " << this->intensite << "\n";
   std::cout << "Ajustement des vagues : " << this->ajustVague << "\n";
   std::cout << "Longueur d'ondes : " << this->longueurOnde << "\n";
+
+  std::cout << "Et les ondes suivantes : \n";
+  std::list<GerstnerWave>::iterator i;
+  for(i = listGerWave.begin(); i != listGerWave.end(); i++) {
+    (*i).display(str);
+  }
 }

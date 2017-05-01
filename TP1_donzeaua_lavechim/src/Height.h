@@ -52,6 +52,8 @@ class Height {
         unsigned int getNy() const;
 		void display(std::ostream& str) const;
 
+        ~Height();
+
 };
 
 //flux

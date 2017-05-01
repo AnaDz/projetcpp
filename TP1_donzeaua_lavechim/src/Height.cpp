@@ -102,8 +102,8 @@ std::ostream & operator <<(std::ostream &Out, const Height &h){
 
 	double x;
 	double y;
-	int nx = h.getNx();
-	int ny = h.getNy();
+	unsigned int nx = h.getNx();
+	unsigned int ny = h.getNy();
 	double Lx = h.getLx();
 	double Ly = h.getLy();
 	for(unsigned int i=0; i <= nx ; i++) {

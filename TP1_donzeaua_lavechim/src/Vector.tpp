@@ -19,7 +19,7 @@ template<class T> void Vector<T>::init(int d){
     }
 }
 
-template<class T> int Vector<T>::size() const{
+template<class T> unsigned int Vector<T>::size() const{
     return dim;
 }
 
@@ -81,9 +81,11 @@ template<class T> Vector<T>::~Vector(){
 }
 
 template<class T> void Vector<T>::display(std::ostream& str) {
+    str << "( ";
     for(int i=0; i<dim; i++){
-        str<<vect[i]<<"\n";
+        str<<vect[i]<<" ";
     }
+    str << ")";
 }
 
 
@@ -96,9 +98,8 @@ template<class T> void Vector<T>::fillRandomly(){
 }
 
 template<class T> T& Vector<T>::operator()(int i){
-    if(i<0 || i>= dim){
-        std::cout <<i << "\n";
-        throw std::invalid_argument("L'indice d'un vecteur doit être compris entre 0 et dim -1 ");
+    if(i<0 || i >= dim){
+        throw std::invalid_argument(" : L'indice d'un vecteur doit être compris entre 0 et dim -1 ");
     } else {
         return vect[i];
     }
