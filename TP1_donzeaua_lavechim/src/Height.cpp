@@ -9,7 +9,7 @@
 #include <math.h>
 
 //Constructeurs et méthodes d'initialisation
-void Height::init(double Lx, double Ly, int nx, int ny) {
+void Height::init(double Lx, double Ly, unsigned int nx, unsigned int ny) {
 	this->Lx = Lx;
 	this->Ly = Ly;
 	this->nx = nx;
@@ -21,18 +21,18 @@ Height::Height() {
 }
 
 Height::Height(const Height & h) {
-  this->init(h.Lx, h.Ly, h.nx, h.ny);
-	//this->hauteurs = new Vector<double>(h.hauteurs);
+	this->init(h.Lx, h.Ly, h.nx, h.ny);
+	this->hauteurs = Vector<double>(h.hauteurs);
 }
 
-Height::Height(double Lx, double Ly, int nx, int ny) {
+Height::Height(double Lx, double Ly, unsigned int nx, unsigned int ny) {
 	this->init(Lx, Ly, nx, ny);
-	//this->hauteurs = Vector<double>((nx+1)*(ny+1));
+	this->hauteurs = Vector<double>((nx+1)*(ny+1));
 }
 
-Height::Height(double Lx, double Ly, int nx, int ny, const Vector<double> &v) {
+Height::Height(double Lx, double Ly, unsigned int nx, unsigned int ny, const Vector<double> &v) {
 	this->init(Lx,Ly,nx,ny);
-	//this->hauteurs = Vector<double>((nx+1)*(ny+1));
+	this->hauteurs = Vector<double>((nx+1)*(ny+1));
 	this->fill(v);
 }
 
@@ -101,12 +101,12 @@ std::ostream & operator <<(std::ostream &Out, const Height &h){
 	int ny = h.getNy();
 	double Lx = h.getLx();
 	double Ly = h.getLy();
-	for(int i=0; i <= nx ; i++) {
-    for(int j=0; j <= ny; j++) {
-    	x = i*Lx/nx;
-    	y = j*Ly/ny;
-    	Out<<"("<< x <<","<< y << "," << h(x,y) <<")\n";
-    }
+	for(unsigned int i=0; i <= nx ; i++) {
+        for(unsigned int j=0; j <= ny; j++) {
+            x = i*Lx/nx;
+            y = j*Ly/ny;
+            Out<<"("<< x <<","<< y << "," << h(x,y) <<")\n";
+        }
   }
 
   Out<<std::endl;
@@ -124,19 +124,19 @@ double Height::getLy() const{
 	return Ly;
 }
 
-int Height::getNx() const{
+unsigned int Height::getNx() const{
 	return nx;
 }
 
-int Height::getNy() const{
+unsigned int Height::getNy() const{
 	return ny;
 }
 
 void Height::display(std::ostream& str) const {
 	//double fixed;
 	str << " ";
-	for(int i = 0; i <= nx; i++) {
-		for(int j = 0; j <= ny; j++) {
+	for(unsigned int i = 0; i <= nx; i++) {
+		for(unsigned int j = 0; j <= ny; j++) {
 			str << hauteurs(i*nx+j) << " ";
 		}
 		str << "\n ";
