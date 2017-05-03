@@ -237,7 +237,9 @@ template<class T> Vector<T>& Vector<T>::operator =(const Vector<T> &v){
             }
             init(v.size());
         }
-
+    /*for (int i =0; i<this->size();i++){
+        (*this)(i) = v(i);
+    }*/
         memcpy(vect, v.vect, dim*sizeof(T));
 
     }
