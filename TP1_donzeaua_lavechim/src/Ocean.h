@@ -26,11 +26,12 @@ public:
     Ocean(double Lx, double Ly, unsigned int nx, unsigned int ny, double t, Height H, WaveModel &Model);
     Ocean(WaveModel &Model);
     Ocean(const Ocean & O);
-    Ocean();
 
     //Opérateurs
     Ocean & operator =(const Ocean &oce);
-
+    bool operator==(const Ocean &O) const;
+    void generateHeight(double d);
+    void compute(int t);
     void init_vertices();
     void gl_vertices();
 

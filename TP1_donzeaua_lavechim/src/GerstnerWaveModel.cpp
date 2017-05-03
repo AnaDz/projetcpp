@@ -1,14 +1,10 @@
 #include "GerstnerWaveModel.h"
 
-//GerstnerWaveModel::GerstnerWaveModel(Dvector X_0 = 0, Dvector vectOnde = 0, double phase = 0, double ampli = 0, const list<GerstnerWave> & listGerWave = list<GerstnerWave>()) : WaveModel(dirV, alignV, intens, lambda, just) {
-
-GerstnerWaveModel::GerstnerWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV)
-{
+GerstnerWaveModel::GerstnerWaveModel(double dirV, double alignV, double inten,double lambda, double ajustV) {
   init_param(dirV, alignV, inten, lambda, ajustV);
 }
 
-GerstnerWaveModel::GerstnerWaveModel(double dirV, double alignV, double inten, double lambda, double ajustV, list<GerstnerWave> listGerWave)
-{
+GerstnerWaveModel::GerstnerWaveModel(double dirV, double alignV, double inten, double lambda, double ajustV, list<GerstnerWave> listGerWave) {
   init_param(dirV, alignV, inten, lambda, ajustV);
   this->listGerWave = listGerWave;
 }
@@ -19,10 +15,11 @@ void GerstnerWaveModel::addGerstnerWave(const GerstnerWave & W){
 }
 
 double GerstnerWaveModel::operator()(double x, double y, double t) {
-  std::cout << "Not implemented yet\n";
   double res = 0;
-  std::list<GerstnerWave*>::iterator i;
-
+  std::list<GerstnerWave>::iterator i;
+  for(i = listGerWave.begin(); i != listGerWave.end(); i++) {
+    res += (*i).computeHeight(x, y, t);
+  }
   return res;
 }
 

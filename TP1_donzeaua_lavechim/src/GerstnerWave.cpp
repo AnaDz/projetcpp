@@ -45,9 +45,9 @@ GerstnerWave& GerstnerWave::operator=(const GerstnerWave &GW){
   return *this;
 }
 
-/*GerstnerWave::~GerstnerWave() {
+GerstnerWave::~GerstnerWave() {
 
-}*/
+}
 
 void GerstnerWave::display(std::ostream& str) {
     str<< "Point X0 : ";
@@ -67,4 +67,34 @@ double GerstnerWave::operator()(double x, double y, double t) {
     double w = sqrt(9.81*normek);
     res = A*cos(prodscal-w*t);
     return res;
+}
+
+
+double GerstnerWave::getW() {
+  return w;
+}
+
+double GerstnerWave::getPhi() {
+  return phi;
+}
+
+double GerstnerWave::getA() {
+  return A;
+}
+
+double GerstnerWave::getG() {
+  return g;
+}
+
+Vector<double> GerstnerWave::getX0() {
+  return X0;
+}
+
+Vector<double> GerstnerWave::getK() {
+  return k;
+}
+double GerstnerWave::computeHeight(double x, double y, double t) {
+  Vector<double> tmp(2, x);
+  tmp(1) = y;
+  return A*cos(k*tmp-w*t+phi);
 }

@@ -12,6 +12,7 @@ protected:
     double intensite;       //Si on les mets static, ça provoque une "undefined reference"
     double longueurOnde;
     double ajustVague;
+    double amplitude;
 
 public:
     WaveModel(double dirV=0, double alignV=0, double intens=0, double lambda=0,double ajust=0);
@@ -24,6 +25,7 @@ public:
     double getLongueurOnde();
     double getAjustementVague();
     void init_param(double dirV, double alignV,double  inten,double  lambda, double ajustV);
+
 };
 
 #endif //WAVEMODEL_H

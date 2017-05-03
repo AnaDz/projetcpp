@@ -33,17 +33,54 @@ Ocean::Ocean(WaveModel & Model) {
 }
 
 Ocean::Ocean(const Ocean & oce) {
-  std::cout << "NOT IMPLEMENTED YET!\n";
+  this->Lx = oce.Lx;
+  this->Ly = oce.Ly;
+  this->nx = oce.nx;
+  this->ny = oce.ny;
+  this->t = oce.t;
+  this->H = oce.H;
+  this->Model = oce.Model;
+  this->vertices = oce.vertices;
 }
 
-Ocean::Ocean() {
-  std::cout << "NOT IMPLEMENTED YET!\n";
-}
 
 //Opérateurs
 Ocean & Ocean::operator=(const Ocean & O) {
-  std::cout << "NOT IMPLEMENTED YET!\n";
+  if(*this == O) {
+    return *this;
+  }
+  this->Lx = O.Lx;
+  this->Ly = O.Ly;
+  this->nx = O.nx;
+  this->ny = O.ny;
+  this->t = O.t;
+  this->H = O.H;
+  if(this->Model != nullptr) {
+    delete this->Model;
+  }
+  this->Model = O.Model;
+  this->vertices = O.vertices;
   return *this;
+}
+
+bool Ocean::operator==(const Ocean &O) const {
+  if(this->H == O.H && this->vertices == O.vertices) { //On compare Lx,Ly,nx,ny avec la comp de H
+    return true;
+  }
+  return false;
+}
+
+void Ocean::generateHeight(double d) {
+  Vector<double> fill((nx+1)*(ny+1), d);
+  H.fill(fill);
+}
+
+void Ocean::compute(int t) {
+  for(unsigned int i = 0; i <= nx; i++) {
+    for(unsigned int j = 0; j <= ny; j++) {
+      H(i*Lx/nx, j*Ly/ny) = (*Model)(i*Lx/nx, j*Ly/ny, t);
+    }
+  }
 }
 
 void Ocean::init_vertices() {
@@ -55,9 +92,9 @@ void Ocean::init_vertices() {
 void Ocean::gl_vertices() {
     for(unsigned int i = 0; i <= nx; i++) {
         for(unsigned int j = 0; j <= ny; j++) {
-            vertices[i+(nx+1)*j](2) = H(i*10/nx, j*10/ny);
-            vertices[i+(nx+1)*j](1) = j*10/nx;
-            vertices[i+(nx+1)*j](0) = i*10/ny;
+            vertices[i+(nx+1)*j](2) = H(i*Lx/nx, j*Ly/ny);
+            vertices[i+(nx+1)*j](1) = j*Lx/nx;
+            vertices[i+(nx+1)*j](0) = i*Ly/ny;
         }
     }
 }

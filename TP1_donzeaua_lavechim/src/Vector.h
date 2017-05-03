@@ -46,7 +46,7 @@ public:
     Vector<T>& operator =(const Vector<T> &v);
     Vector<T> & operator+=(const Vector<T> v);
     Vector<T> & operator-=(const Vector<T> v);
-    bool operator == (const Vector<T> &v);
+    bool operator == (const Vector<T> &v) const;
 };
 
 template <class T> Vector<T> operator +(T d, const Vector<T> & v);

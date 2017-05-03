@@ -46,6 +46,7 @@ void WaveModel::init_param(double dirV, double alignV,double inten, double lambd
   ajustVague = ajustV;
 }
 
+
  WaveModel::~WaveModel() {
 
  }

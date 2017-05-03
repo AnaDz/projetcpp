@@ -90,7 +90,7 @@ Height & Height::operator=(const Height & h) {
 }
 
 //Opérateur d'égalité
-bool Height::operator==(const Height & h) {
+bool Height::operator==(const Height & h) const {
 	if(this->Lx != h.Lx || this->Ly != h.Ly || this->nx != h.nx || this->ny != h.ny) {
 		return false;
 	}

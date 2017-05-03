@@ -43,7 +43,7 @@ class Height {
 		Height & operator=(const Height &h);
 
 			//égalité
-		bool operator==(const Height &v);
+		bool operator==(const Height &v) const;
 
 		//Accesseurs
 		double getLx() const;

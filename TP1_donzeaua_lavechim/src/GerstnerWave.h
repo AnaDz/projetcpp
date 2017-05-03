@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iostream>
 #include <list>
+#include <cmath>
 
 class GerstnerWave{
 private:
@@ -23,7 +24,17 @@ public:
     GerstnerWave& operator=(const GerstnerWave &GW);
 
     void display(std::ostream& str);
-    //~GerstnerWave();
+    ~GerstnerWave();
+
+    double getW();
+    double getPhi();
+    double getA();
+    double getG();
+
+    Vector<double> getX0();
+    Vector<double> getK();
+
+    double computeHeight(double x, double y, double t);
 };
 
 #endif //GERSTNERWAVE_H

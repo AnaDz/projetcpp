@@ -267,7 +267,7 @@ template<class T> Vector<T> & Vector<T>::operator-=(const Vector<T> v) {
 }
 
 
-template<class T> bool Vector<T>::operator ==(const Vector<T> &v){
+template<class T> bool Vector<T>::operator ==(const Vector<T> &v) const{
     if (v.size()== this->dim){
         bool res = true;
         for (int i=0; i<this->dim; i++){
