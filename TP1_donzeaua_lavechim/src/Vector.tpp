@@ -85,7 +85,7 @@ template<class T> void Vector<T>::display(std::ostream& str) {
     for(int i=0; i<dim; i++){
         str<<vect[i]<<" ";
     }
-    str << ")";
+    str << ")\n";
 }
 
 

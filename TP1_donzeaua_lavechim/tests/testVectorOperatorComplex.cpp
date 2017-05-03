@@ -35,10 +35,10 @@ int main() {
     Vector<std::complex<double>> v3;
     v3 = std::complex<double>(3.0,0.0)+v2;
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(5,1)\n(5,1)\n(5,1)\n(5,1)\n");
+    assert(str.str() == "( (5,1) (5,1) (5,1) (5,1) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Addition gauche par un double : OK\n";
 
@@ -46,10 +46,10 @@ int main() {
     str.str("");
     v3 = v2+std::complex<double>(3.0,1.0);
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(5,2)\n(5,2)\n(5,2)\n(5,2)\n");
+    assert(str.str() == "( (5,2) (5,2) (5,2) (5,2) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Addition droite par un double : OK\n";
 
@@ -57,10 +57,10 @@ int main() {
     str.str("");
     v3 = std::complex<double>(1.0,0.0)-v2;
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(-1,-1)\n(-1,-1)\n(-1,-1)\n(-1,-1)\n");
+    assert(str.str() == "( (-1,-1) (-1,-1) (-1,-1) (-1,-1) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Soustraction gauche par un double : OK\n";
 
@@ -68,10 +68,10 @@ int main() {
     str.str("");
     v3 = v2-std::complex<double>(1.0,0.0);
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(1,1)\n(1,1)\n(1,1)\n(1,1)\n");
+    assert(str.str() == "( (1,1) (1,1) (1,1) (1,1) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Soustraction droite par un double : OK\n";
 
@@ -79,10 +79,10 @@ int main() {
     str.str("");
     v3 = std::complex<double>(5.0,0.0)*v2;
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(10,5)\n(10,5)\n(10,5)\n(10,5)\n");
+    assert(str.str() == "( (10,5) (10,5) (10,5) (10,5) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Multiplication gauche par un double : OK\n";
 
@@ -90,10 +90,10 @@ int main() {
     str.str("");
     v3 = v2*std::complex<double>(5.0,1.0);
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(9,7)\n(9,7)\n(9,7)\n(9,7)\n");
+    assert(str.str() == "( (9,7) (9,7) (9,7) (9,7) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Multiplication droite par un double : OK\n";
 
@@ -101,10 +101,10 @@ int main() {
     str.str("");
     v3 = v2/std::complex<double>(4.0,1.0);
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(0.529412,0.117647)\n(0.529412,0.117647)\n(0.529412,0.117647)\n(0.529412,0.117647)\n");
+    assert(str.str() == "( (0.529412,0.117647) (0.529412,0.117647) (0.529412,0.117647) (0.529412,0.117647) )\n");
     assert(v2.size() == v3.size());
     std::cout << "Divison droite par un double : OK\n";
 
@@ -113,14 +113,14 @@ int main() {
     v3 = Vector<std::complex<double>>(4,std::complex<double>(1.0,3.0));
     Vector<std::complex<double>> v4 = v2+v3;
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(1,3)\n(1,3)\n(1,3)\n(1,3)\n");
+    assert(str.str() == "( (1,3) (1,3) (1,3) (1,3) )\n");
     assert(v2.size() == v3.size());
     str.str("");
     v4.display(str);
-    assert(str.str() == "(3,4)\n(3,4)\n(3,4)\n(3,4)\n");
+    assert(str.str() == "( (3,4) (3,4) (3,4) (3,4) )\n");
     assert(v2.size() == v4.size());
     std::cout << "Addition de 2 vecteurs : OK\n";
 
@@ -128,27 +128,27 @@ int main() {
     str.str("");
     v4 = v2-v3;
     v2.display(str);
-    assert(str.str() == "(2,1)\n(2,1)\n(2,1)\n(2,1)\n");
+    assert(str.str() == "( (2,1) (2,1) (2,1) (2,1) )\n");
     str.str("");
     v3.display(str);
-    assert(str.str() == "(1,3)\n(1,3)\n(1,3)\n(1,3)\n");
+    assert(str.str() == "( (1,3) (1,3) (1,3) (1,3) )\n");
     assert(v2.size() == v3.size());
     str.str("");
     v4.display(str);
-    assert(str.str() == "(1,-2)\n(1,-2)\n(1,-2)\n(1,-2)\n");
+    assert(str.str() == "( (1,-2) (1,-2) (1,-2) (1,-2) )\n");
     assert(v2.size() == v4.size());
-    std::cout << "Soustraction de 2 vecteurs : OK\n";
+    std::cout << "Soustraction de 2 vecteurs : OK ";
 
     //Moins unaire
     str.str("");
     v4 = -v4;
     v4.display(str);
-    assert(str.str() == "(-1,2)\n(-1,2)\n(-1,2)\n(-1,2)\n");
+    assert(str.str() == "( (-1,2) (-1,2) (-1,2) (-1,2) )\n");
 
     str.str("");
     v4 = -v2;
     v4.display(str);
-    assert(str.str() == "(-2,-1)\n(-2,-1)\n(-2,-1)\n(-2,-1)\n");
+    assert(str.str() == "( (-2,-1) (-2,-1) (-2,-1) (-2,-1) )\n");
 
     std::cout << "Moins Unaire : OK\n";
 
@@ -164,38 +164,38 @@ int main() {
     str.str("");
     v4 += std::complex<double>(2,2);
     v4.display(str);
-    assert(str.str() == "(4,3)\n(4,3)\n(4,3)\n(4,3)\n");
+    assert(str.str() == "( (4,3) (4,3) (4,3) (4,3) )\n");
     std::cout << "Opérateur += avec un double : OK\n";
 
     str.str("");
     v4 -= std::complex<double>(1,1);
     v4.display(str);
-    assert(str.str() == "(3,2)\n(3,2)\n(3,2)\n(3,2)\n");
+    assert(str.str() == "( (3,2) (3,2) (3,2) (3,2) )\n");
     std::cout << "Opérateur -= avec un double : OK\n";
 
     str.str("");
     v4 *= std::complex<double>(2,0);
     v4.display(str);
-    assert(str.str() == "(6,4)\n(6,4)\n(6,4)\n(6,4)\n");
+    assert(str.str() == "( (6,4) (6,4) (6,4) (6,4) )\n");
     std::cout << "Opérateur *= avec un double : OK\n";
 
     str.str("");
     v4 /=std::complex<double>(2,0);
     v4.display(str);
-    assert(str.str() == "(3,2)\n(3,2)\n(3,2)\n(3,2)\n");
+    assert(str.str() == "( (3,2) (3,2) (3,2) (3,2) )\n");
     std::cout << "Opérateur /= avec un double : OK\n";
 
     //Opérateurs += et -= avec un vecteur
     str.str("");
     v4 += v2;
     v4.display(str);
-    assert(str.str() == "(5,3)\n(5,3)\n(5,3)\n(5,3)\n");
+    assert(str.str() == "( (5,3) (5,3) (5,3) (5,3) )\n");
     std::cout << "Opérateur += avec un vecteur : OK\n";
 
     str.str("");
     v4 -= v2;
     v4.display(str);
-    assert(str.str() == "(3,2)\n(3,2)\n(3,2)\n(3,2)\n");
+    assert(str.str() == "( (3,2) (3,2) (3,2) (3,2) )\n");
     std::cout << "Opérateur -= avec un vecteur : OK\n";
 
     //Opérateur de comparaison
@@ -209,13 +209,13 @@ int main() {
     str.str("");
     v4.resize(3);
     v4.display(str);
-    assert(str.str() == "(3,2)\n(3,2)\n(3,2)\n");
+    assert(str.str() == "( (3,2) (3,2) (3,2) )\n");
     assert(v4.size() == 3);
 
     str.str("");
     v4.resize(5, std::complex<double>(2,0));
     v4.display(str);
-    assert(str.str() == "(3,2)\n(3,2)\n(3,2)\n(2,0)\n(2,0)\n");
+    assert(str.str() == "( (3,2) (3,2) (3,2) (2,0) (2,0) )\n");
     assert(v4.size() == 5);
     std::cout << "Opérateur resize : OK\n";
 
