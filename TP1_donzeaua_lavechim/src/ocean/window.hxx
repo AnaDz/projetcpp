@@ -9,7 +9,7 @@
 #define WIDTH  640
 #define HEIGHT 480
 
-#include "Ocean.hpp"
+#include "../Ocean.h"
 
 extern Ocean* ocean;
 extern int    mainwindow;
@@ -23,7 +23,7 @@ namespace Window {
   void draw_fps();
 
   /** Afficahe de l'océan */
-  void draw_ocean();
+  void draw_ocean(int t);
 
   /** Impose/limite la fréquence d'affichage
    * @param[in] fps fréquence d'affichage

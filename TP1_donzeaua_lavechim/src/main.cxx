@@ -1,14 +1,18 @@
-#include <cstdlib>
-#include <ctime>
+#include <GL/glut.h>
 #include <iostream>
 #include "Ocean.h"
 #include "GerstnerWaveModel.h"
-#include "
+#include "Height.h"
+#include "Vector.h"
+#include "GerstnerWave.h"
 
 /** @todo Inclure les fichiers de définition du problème */
 
 #include "window.hxx"
-Ocean* ocean; 
+#include "camera.hxx"
+#include "gl_defs.hxx"
+
+Ocean* ocean;
 int mainwindow;
 
 int main(int argc, char** argv) {

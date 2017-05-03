@@ -107,6 +107,21 @@ ostream & Ocean::print_vertices(ostream& str) {
   return str;
 }
 
+  double Ocean::getLx() {
+    return Lx;
+  }
+  
+  double Ocean::getLy() {
+    return Ly;
+  }
+
+  unsigned int Ocean::getNx() {
+    return nx;
+  }
+
+  unsigned int Ocean::getNy() {
+    return ny;
+  }
 //Destructeur
 Ocean::~Ocean(){
 }

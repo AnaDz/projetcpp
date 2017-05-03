@@ -1,5 +1,6 @@
 #CMakeLists du répertoire src
 
+
 add_library(src
 	SHARED
 	Vector.tpp
@@ -8,7 +9,8 @@ add_library(src
 	GerstnerWave.cpp 
 	GerstnerWaveModel.cpp
 	PhilipsWaveModel.cpp
-	Ocean.cpp )
+	Ocean.cpp 
+	ocean.hxx)
 	
 install (TARGETS src
 	DESTINATION lib)

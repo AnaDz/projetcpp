@@ -37,9 +37,22 @@ public:
 
     ostream & print_vertices(ostream& str);
 
+    double getLx();
+    double getLy();
+    unsigned int getNx();
+    unsigned int getNy();
+
+    void init_gl_VertexArrayX(const int y, double* const vertices) const;
+
+
+    void init_gl_VertexArrayY(const int x, double* const vertices) const;
+
+    void gl_VertexArrayX(const int y, double* const vertices) const;
+
+    void gl_VertexArrayY(const int x, double* const vertices) const;
 
     //Destructeur
     ~Ocean();
 };
-
+#include "ocean.hxx"
 #endif //OCEAN_H

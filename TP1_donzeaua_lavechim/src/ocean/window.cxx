@@ -43,7 +43,7 @@ namespace Window {
         camera->getSightX(), camera->getSightY(), camera->getSightZ(),
         0, 1, 0);
 
-    draw_ocean();
+    draw_ocean(t);
     draw_fps();
 
     glutSwapBuffers();
@@ -73,9 +73,9 @@ namespace Window {
     glPopMatrix();
   }
 
-  void draw_ocean() {
+  void draw_ocean(int t) {
     // Réalise effectivement l'étape de calcul
-    ocean->main_computation();
+    ocean->compute(t);
 
     // Impose la couleur d'affichage de la grille
     glColor3ub(82, 184, 255);
@@ -84,7 +84,7 @@ namespace Window {
     // les colonnes à afficher
     for(int x = 0 ; x < nxOcean ; x++) {
       // Récupère les données depuis la classe Ocean
-      ocean->gl_vertexArrayY(x, vertexOceanY[x]);
+      ocean->gl_VertexArrayY(x, vertexOceanY[x]);
       glEnableClientState(GL_VERTEX_ARRAY);
       glVertexPointer(3, GL_DOUBLE, 0, vertexOceanY[x]);
       glDrawArrays(GL_LINE_STRIP, 0, nyOcean+1);
@@ -95,7 +95,7 @@ namespace Window {
     // les lignes à afficher
     for(int y = 0 ; y < nyOcean ; y++) {
       // Récupère les données depuis la classe Ocean
-      ocean->gl_vertexArrayX(y, vertexOceanX[y]);
+      ocean->gl_VertexArrayX(y, vertexOceanX[y]);
       glEnableClientState(GL_VERTEX_ARRAY);
       glVertexPointer(3, GL_DOUBLE, 0, vertexOceanX[y]);
       glDrawArrays(GL_LINE_STRIP, 0, nxOcean+1);
@@ -186,7 +186,7 @@ namespace Window {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45, float(width)/float(height), 1, 10*sqrt(pow(ocean->get_ly(), 2) + pow(ocean->get_lx(), 2)));
+    gluPerspective(45, float(width)/float(height), 1, 10*sqrt(pow(ocean->getLy(), 2) + pow(ocean->getLx(), 2)));
   }
 
 }
