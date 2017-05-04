@@ -31,9 +31,11 @@ void Ocean::init_gl_VertexArrayY(const int x, double* const vertices) const {
  */
 void Ocean::gl_VertexArrayX(const int y, double* const vertices) const {
   for(unsigned int x=0 ; x<nx ; x++) {
-    vertices[3*x+1] = pow(-1, x+y)*H(y,x); //H ou hr ?
+    //vertices[3*x+1] = pow(-1, x+y)*H(y,x); //H ou hr ?
+    vertices[3*x+1] = H(y,x);
   }
-  vertices[3*nx+1] = pow(-1, nx+y)*H(y,0);  //H ou hr ?
+  //vertices[3*nx+1] = pow(-1, nx+y)*H(y,0);  //H ou hr ?
+  vertices[3*nx+1] = H(y,0);
 }
 
 /** Convertit le champs de hauteur en tabeau directement utilisable

@@ -31,7 +31,7 @@ public:
     Ocean & operator =(const Ocean &oce);
     bool operator==(const Ocean &O) const;
     void generateHeight(double d);
-    void compute(int t);
+    void compute();
     void init_vertices();
     void gl_vertices();
 

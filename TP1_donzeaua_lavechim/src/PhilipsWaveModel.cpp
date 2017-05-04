@@ -87,7 +87,7 @@ double PhilipsWaveModel::operator()(double x, double y, double t){
     X(0) = floor(x*N/Lx);
     X(1) = floor(y*M/Ly);
     Vector<std::complex<double>> k(2);
-    std::complex<double> h(0,0);
+    std::complex<double> h(0,0); 
 
     for (int i=-N/2; i<N/2+1;i++){
         for (int j=-M/2; j<M/2+1;j++){

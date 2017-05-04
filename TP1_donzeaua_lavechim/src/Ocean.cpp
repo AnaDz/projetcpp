@@ -75,12 +75,13 @@ void Ocean::generateHeight(double d) {
   H.fill(fill);
 }
 
-void Ocean::compute(int t) {
+void Ocean::compute() {
   for(unsigned int i = 0; i <= nx; i++) {
     for(unsigned int j = 0; j <= ny; j++) {
       H(i*Lx/nx, j*Ly/ny) = (*Model)(i*Lx/nx, j*Ly/ny, t);
     }
   }
+  t += 0.01;
 }
 
 void Ocean::init_vertices() {
@@ -110,7 +111,7 @@ ostream & Ocean::print_vertices(ostream& str) {
   double Ocean::getLx() {
     return Lx;
   }
-  
+
   double Ocean::getLy() {
     return Ly;
   }

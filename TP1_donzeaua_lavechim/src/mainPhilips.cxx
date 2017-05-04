@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include "Ocean.h"
-#include "GerstnerWaveModel.h"
+#include "PhilipsWaveModel.h"
 #include "Height.h"
 #include "Vector.h"
 #include "GerstnerWave.h"
@@ -15,38 +15,29 @@
 Ocean* ocean;
 int mainwindow;
 
+using namespace std;
 int main(int argc, char** argv) {
+
   /** Initialiser des paramètres de simulation */
   double dirV = 3.1415;
-  double alignV = 2;
-  double inten = 5;
+  double alignV = 5;
+  double inten = 1;
   double lambda = 5;
-  double ajustV = 5;
-
-  /** Initialiser du modèle*/
-  //Création des ondes de Gerstner
-  Vector<double> x1(2,1);
-  Vector<double> vectOnde1(2,4);
-  GerstnerWave onde1(x1, vectOnde1, 2, 20);
-
-  Vector<double> x2(2,8);
-  Vector<double> vectOnde2(2,3);
-  GerstnerWave onde2(x2, vectOnde2, 4, 40);
-
-  //Création du modèle de Gerstner
-  GerstnerWaveModel GWM(dirV, alignV, inten, lambda , ajustV);
-  GWM.addGerstnerWave(onde1);
-  GWM.addGerstnerWave(onde2);
+  double ajustV = 20;
 
   /** Initialiser du champ de hauteur */
-  double Lx = 10;
-  double Ly = 10;
-  unsigned int nx = 2;
-  unsigned int ny = 2;
+  double Lx = 500;
+  double Ly = 500;
+  unsigned int nx = 250;
+  unsigned int ny = 250;
   Height H(Lx, Ly, nx, ny);
 
+  /** Initialiser du modèle*/
+  PhilipsWaveModel phil(dirV, alignV, inten, lambda, ajustV, H);
+
   /** Initialiser de l'océan */
-  Ocean testOcean(Lx, Ly, nx, ny, 0, H, GWM);
+  ocean = new Ocean(Lx, Ly, nx, ny, 0, H, phil);
+  ocean->generateHeight(50);
 
   /* Initialisation de la fenêtre d'affichage */
   Window::init(WIDTH, HEIGHT, "Houle", argc, argv, "AZERTY", 50, 1);

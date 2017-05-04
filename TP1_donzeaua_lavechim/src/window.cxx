@@ -75,9 +75,7 @@ namespace Window {
 
   void draw_ocean() {
     // Réalise effectivement l'étape de calcul
-
-    ocean->compute(); //à remplacer par t pour faire évoluer le modèle
-                        // t avance par pas de 1 sec ...
+    ocean->main_computation();
 
     // Impose la couleur d'affichage de la grille
     glColor3ub(82, 184, 255);
@@ -86,7 +84,7 @@ namespace Window {
     // les colonnes à afficher
     for(int x = 0 ; x < nxOcean ; x++) {
       // Récupère les données depuis la classe Ocean
-      ocean->gl_VertexArrayY(x, vertexOceanY[x]);
+      ocean->gl_vertexArrayY(x, vertexOceanY[x]);
       glEnableClientState(GL_VERTEX_ARRAY);
       glVertexPointer(3, GL_DOUBLE, 0, vertexOceanY[x]);
       glDrawArrays(GL_LINE_STRIP, 0, nyOcean+1);
@@ -97,7 +95,7 @@ namespace Window {
     // les lignes à afficher
     for(int y = 0 ; y < nyOcean ; y++) {
       // Récupère les données depuis la classe Ocean
-      ocean->gl_VertexArrayX(y, vertexOceanX[y]);
+      ocean->gl_vertexArrayX(y, vertexOceanX[y]);
       glEnableClientState(GL_VERTEX_ARRAY);
       glVertexPointer(3, GL_DOUBLE, 0, vertexOceanX[y]);
       glDrawArrays(GL_LINE_STRIP, 0, nxOcean+1);
@@ -152,14 +150,12 @@ namespace Window {
     }
 
     // Initialise les tableaux nécessaires aux tranferts de données
-
     for(int x=0 ; x<nxOcean ; x++) {
       ocean->init_gl_VertexArrayY(x, vertexOceanY[x]);
     }
     for(int y=0 ; y<nyOcean ; y++) {
       ocean->init_gl_VertexArrayX(y, vertexOceanX[y]);
     }
-
 
     // Réalise l'affichage
     glClearColor(1, 1, 1, 1);
@@ -190,7 +186,7 @@ namespace Window {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45, float(width)/float(height), 1, 10*sqrt(pow(ocean->getLy(), 2) + pow(ocean->getLx(), 2)));
+    gluPerspective(45, float(width)/float(height), 1, 10*sqrt(pow(ocean->get_ly(), 2) + pow(ocean->get_lx(), 2)));
   }
 
 }
