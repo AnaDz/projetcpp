@@ -20,16 +20,16 @@ int main(int argc, char** argv) {
 
   /** Initialiser des paramètres de simulation */
   double dirV = 3.1415;
-  double alignV = 5;
+  double alignV = 1;
   double inten = 1;
-  double lambda = 5;
-  double ajustV = 20;
+  double lambda = 1;
+  double ajustV = 1;
 
   /** Initialiser du champ de hauteur */
-  double Lx = 500;
-  double Ly = 500;
-  unsigned int nx = 250;
-  unsigned int ny = 250;
+  double Lx = 64;
+  double Ly = 64;
+  unsigned int nx = 64;
+  unsigned int ny = 64;
   Height H(Lx, Ly, nx, ny);
 
   /** Initialiser du modèle*/

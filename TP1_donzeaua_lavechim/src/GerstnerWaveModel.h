@@ -19,6 +19,7 @@ public:
     ~GerstnerWaveModel();
     double operator()(double x, double y, double t);
     void display(std::ostream& str);
+    void printtype();
 };
 
 #endif

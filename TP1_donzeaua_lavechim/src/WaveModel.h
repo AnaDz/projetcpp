@@ -18,6 +18,7 @@ public:
     WaveModel(double dirV=0, double alignV=0, double intens=0, double lambda=0,double ajust=0);
     virtual ~WaveModel();
     virtual double operator()(double x, double y, double t) = 0;
+    virtual void printtype() =0;
     void display(std::ostream& str);
     double getDirectionVent();
     double getAlignementVent();

@@ -17,11 +17,11 @@ private:
     unsigned int ny;           // nombre de pts de discrétisation du domaine dans la direction y
     double t;         // le temps courant
     Height H;         // la hauteur de la houle
-    WaveModel *Model;  // le modèle utilisé
+
     vector<Vector<double>> vertices; //tableau dynamique de vecteur de dimension 3
 
 public:
-
+    WaveModel *Model;  // le modèle utilisé
     //Constructeurs
     Ocean(double Lx, double Ly, unsigned int nx, unsigned int ny, double t, Height H, WaveModel &Model);
     Ocean(WaveModel &Model);

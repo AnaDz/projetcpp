@@ -50,7 +50,6 @@ int main(int argc, char** argv) {
   /** Initialiser de l'océan */
   ocean = new Ocean(Lx, Ly, nx, ny, 0, H, GWM);
   ocean->generateHeight(50);
-
   /* Initialisation de la fenêtre d'affichage */
   Window::init(WIDTH, HEIGHT, "Houle", argc, argv, "AZERTY", 50, 1);
 

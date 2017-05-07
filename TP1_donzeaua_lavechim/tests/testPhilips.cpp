@@ -20,6 +20,6 @@ int main() {
     std::cout<< hauteur << "\n";
     std::cout<< "Height a : " ;
     std::cout<<phil.getH()(1,2)<<"\n";
-    h.display(std::cout);
+    phil.getH().display(std::cout);
 	return 0;
 }

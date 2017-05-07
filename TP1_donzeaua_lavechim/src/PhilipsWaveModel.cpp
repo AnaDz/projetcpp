@@ -52,7 +52,7 @@ double w(Vector<std::complex<double>> k){
 std::complex<double> PhilipsWaveModel::P(Vector<std::complex<double>> k){
     if(k.norm()==std::complex<double>(0,0)){ return  std::complex<double>(0,0);}
     std::complex<double> res = std::complex<double>(0,0);
-    double A = 3.0; //????
+    double A = 1.0; //????
     // vitesse du vent
     Vector<std::complex<double>> w = Vector<std::complex<double>>(2);
     w(0) = std::complex<double>(std::cos(this->directionVent),0);
@@ -78,30 +78,52 @@ std::complex<double> PhilipsWaveModel::h_tilde(Vector<std::complex<double> > k, 
     return res;
 }
 
+void PhilipsWaveModel::computeH_tilde(double t){
+  int N = height.getNx();
+  int M = height.getNy();
+  double Lx = height.getLx();
+  double Ly = height.getLy();
+  hTilde = Vector<std::complex<double>>(N*M,0.0);
+  Vector<std::complex<double>> k(2);
+  for (int i=-N/2; i<N/2;i++){
+      for (int j=-M/2; j<M/2;j++){
+          k(0) = std::complex<double>((double)2*M_PI*i/Lx,0.0);
+          k(1) = std::complex<double>((double)2*M_PI*j/Ly,0.0);
+          hTilde((i+N/2)*N + j+M/2) = h_tilde(k, t);
+      }
+  }
+  iFFT(hTilde);
+}
+
 double PhilipsWaveModel::operator()(double x, double y, double t){
+//  std::cerr << x << "," <<y << " "<<t<< std::endl;
+    if(t != last_time){
+      computeH_tilde(t);
+    }
     int N = height.getNx();
     int M = height.getNy();
     double Lx = height.getLx();
     double Ly = height.getLy();
-    Vector<std::complex<double>> X(2);
+
+    Vector<int> X(2);
     X(0) = floor(x*N/Lx);
     X(1) = floor(y*M/Ly);
-    Vector<std::complex<double>> k(2);
-    std::complex<double> h(0,0); 
-
-    for (int i=-N/2; i<N/2+1;i++){
-        for (int j=-M/2; j<M/2+1;j++){
-            k(0) = std::complex<double>((double)2*M_PI*i/Lx,0.0);
-            k(1) = std::complex<double>((double)2*M_PI*j/Ly,0.0);
-            std::complex<double> prod = k*X;
-            h = h + h_tilde(k, t)*std::exp(std::complex<double>(0,1)*prod);
-        }
+    if(y == Ly ){
+      X(1)--;
     }
+    if(x == Lx ){
+      X(0)--;
+    }
+    this->height(X(0), X(1)) = hTilde(X(0)*N + X(1)).real();
+    last_time = t;
+    return hTilde(X(1)*N + X(0)).real();
 
-    this->height(X(0).real(), X(1).real()) = h.real();
-    return h.real();
 }
 
 Height PhilipsWaveModel::getH() {
     return height;
+}
+
+void PhilipsWaveModel::printtype() {
+  std::cout << "Philips" << std::endl;
 }

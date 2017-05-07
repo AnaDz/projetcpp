@@ -75,10 +75,8 @@ namespace Window {
 
   void draw_ocean() {
     // Réalise effectivement l'étape de calcul
-
     ocean->compute(); //à remplacer par t pour faire évoluer le modèle
                         // t avance par pas de 1 sec ...
-
     // Impose la couleur d'affichage de la grille
     glColor3ub(82, 184, 255);
 

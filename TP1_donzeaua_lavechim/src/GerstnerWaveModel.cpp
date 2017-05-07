@@ -41,3 +41,6 @@ void GerstnerWaveModel::display(std::ostream& str) {
     (*i).display(str);
   }
 }
+void GerstnerWaveModel::printtype() {
+  std::cout << "Gerstner" << std::endl;
+}

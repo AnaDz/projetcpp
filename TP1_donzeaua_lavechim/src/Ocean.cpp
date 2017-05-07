@@ -81,6 +81,7 @@ void Ocean::compute() {
       H(i*Lx/nx, j*Ly/ny) = (*Model)(i*Lx/nx, j*Ly/ny, t);
     }
   }
+  (*Model).printtype();
   t += 0.01;
 }
 
